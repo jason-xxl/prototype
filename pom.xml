@@ -112,7 +112,7 @@
                     <language>spring</language>
                     <configOptions>
                         <sourceFolder>src/main/java</sourceFolder>
-                        <configPackage>com.prototype.mvp.config</configPackage>
+                        <configPackage>com.prototype.mvp.openapi.sconfig</configPackage>
                     </configOptions>
                     <output>.</output>
                 </configuration>
