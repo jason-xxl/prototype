@@ -82,6 +82,10 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
         <!--End SpringFox / SwaggerCodegen dependencies -->
 
     </dependencies>
