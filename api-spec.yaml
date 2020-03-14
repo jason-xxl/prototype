@@ -1,7 +1,7 @@
 openapi: 3.0.0
 servers: []
 info:
-  version: "0.4.6"
+  version: 0.4.6
   title: Reference Data MS
   description: |
     The Reference Data microservice is a foundational service for centrally managing and serving reference data for all channels.
@@ -151,7 +151,7 @@ paths:
         - Admin
       summary: Retrieve all the existing groups.
       description: |
-        1. Aware of admin entitlement. The "allow" field of RefGroup indicates
+        1. Aware of admin entitlement. The `allow` field of RefGroup indicates
       security: []
       parameters: []
       responses:
@@ -193,7 +193,7 @@ paths:
     post:
       tags:
         - Admin
-      summary: Change the configuration detail of a RefGroup, or create a RefGroup if the "code" doesn't exists.
+      summary: Change the configuration detail of a RefGroup, or create a RefGroup if the `code` doesn't exists.
       description: |
         1. Success depending on entitlement of the viewer
       security: []
@@ -201,8 +201,8 @@ paths:
         - $ref: '#/components/parameters/RefGroupCode'
       requestBody:
         description: |
-          1. "code" field would be ignored as it's immutable
-          2. Validity check on "custom_schema" and "custom_forms" based on their protocol
+          1. `code` field would be ignored as it's immutable
+          2. Validity check on `custom_schema` and `custom_forms` based on their protocol
         required: true
         content:
           application/json:
@@ -305,14 +305,14 @@ paths:
         - Admin
       summary: Create
       description: |
-        Change the configuration detail of a RefEntry, or create a RefEntry if the "code" doesn't exists.
+        Change the configuration detail of a RefEntry, or create a RefEntry if the `code` doesn't exists.
       security: []
       parameters:
         - $ref: '#/components/parameters/RefGroupCode'
         - $ref: '#/components/parameters/RefEntryCode'
       requestBody:
         description: |
-          1. "custom_fields" is governed by the "custom_schema" of its parent RefGroup.
+          1. `custom_fields` is governed by the `custom_schema` of its parent RefGroup.
           2. 400 would be returned if the data or format doesn't comply to the JSON-SCHEMA.
         required: true
         content:
@@ -331,7 +331,7 @@ paths:
     post:
       tags:
         - Admin
-      summary: Remove an RefEntry identified by its "code"
+      summary: Remove an RefEntry identified by its `code`
       description: |
       security: []
       parameters:
@@ -458,7 +458,7 @@ paths:
       tags:
         - Service
       summary: |
-        Retrieve a set of Ref Entries under a Ref Group "Fast Bank"
+        Retrieve a set of Ref Entries under a Ref Group `Fast Bank`
       description: |
       security: []
       parameters:
@@ -539,7 +539,7 @@ components:
       name: locale
       in: path
       description: |
-        1. "locale" follows the HTTP-Header [Accept-Language](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language)
+        1. `locale` follows the HTTP-Header [Accept-Language](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language)
       required: true
       schema:
         type: string
@@ -547,8 +547,8 @@ components:
       name: translation_key
       in: path
       description: |
-        1. A string key that identifies a set of translation based on "locale"
-        2. Translation is activated by using this patthen "{{translation_key}}" in the content of a field that enabled translation.
+        1. A string key that identifies a set of translation based on `locale`
+        2. Translation is activated by using this patthen `{{translation_key}}` in the content of a field that enabled translation.
       required: true
       schema:
         type: string
@@ -566,7 +566,7 @@ components:
     200:
       description: |
         1. Indicates the request is processed correctly
-        2. For certain product cases, it can mean an acceptable error that the client UI flow has a clearly defined route to handle it, and won't be tracked as error. Use "ExtraInfo" to return the detail info.
+        2. For certain product cases, it can mean an acceptable error that the client UI flow has a clearly defined route to handle it, and won't be tracked as error. Use `ExtraInfo` to return the detail info.
       content:
         application/json:
           schema:
@@ -577,7 +577,7 @@ components:
           1. Param errors or breaking certai feature specific constraint
           2. Authentication failure
           3. Other errors that client or user is responsible for
-        2. Use "ExtraInfo" to return the error detail for client to react accordingly
+        2. Use `ExtraInfo` to return the error detail for client to react accordingly
       content:
         application/json:
           schema:
@@ -585,7 +585,7 @@ components:
     500:
       description: |
         1. Indicates the server processing has generate an error the server side is responsible for
-        2. Use "ExtraInfo" to return the error detail if necessary
+        2. Use `ExtraInfo` to return the error detail if necessary
       content:
         application/json:
           schema:
@@ -616,7 +616,7 @@ components:
     RefGroup:
       description: |
         1. A collection of reference data entries that shares the same schema.
-        2. Uniquely identified by its "code".
+        2. Uniquely identified by its `code`.
       type: object
       properties:
         code:
@@ -653,19 +653,19 @@ components:
     RefEntry:
       description: |
         1. RefEntry is contained by only one RefGroup and share schema with its siblings
-        2. The actual data is stored in "custom_fields"
-        3. Each entry is uniquely identified by a unique "code"
+        2. The actual data is stored in `custom_fields`
+        3. Each entry is uniquely identified by a unique `code`
       type: object
       properties:
         ref_group_code:
           description: |
-            1. The unique "code" of the parent RefGroup
+            1. The unique `code` of the parent RefGroup
           type: string
           minLength: 2
           maxLength: 32
         code:
           description: |
-            1. The unique "code" of this RefEntry
+            1. The unique `code` of this RefEntry
           type: string
           minLength: 2
           maxLength: 32
@@ -679,7 +679,7 @@ components:
           description: |
             1. Extra factor to adjust the ordering of a list of RefEntry.
             2. Default to 0; a larger value brings the RefEntry to the top.
-            2. Expected order in SQL query is "order by sec_id desc, id asc"
+            2. Expected order in SQL query is `order by sec_id desc, id asc`
           type: integer
         custom_fields:
           $ref: '#/components/schemas/CustomFields'
@@ -692,13 +692,13 @@ components:
     RefEntryUser:
       description: |
         1. RefEntry is contained by only one RefGroup and share schema with its siblings
-        2. The "data" field contains the data from "custom_fields" in table
-        3. Each entry is uniquely identified by a unique "code"
+        2. The `data` field contains the data from `custom_fields` in table
+        3. Each entry is uniquely identified by a unique `code`
       type: object
       properties:
         code:
           description: |
-            1. The unique "code" of this RefEntry
+            1. The unique `code` of this RefEntry
           type: string
           minLength: 2
           maxLength: 32
@@ -709,13 +709,13 @@ components:
         - data
     TranslationEntry:
       description: |
-        1. the actual translation based on "locale"
-        2. "locale" field would be ignored during set action
+        1. the actual translation based on `locale`
+        2. `locale` field would be ignored during set action
       type: object
       properties:
         locale:
           description: |
-            1. "locale" follows the HTTP-Header [Accept-Language](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language)
+            1. `locale` follows the HTTP-Header [Accept-Language](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language)
           type: string
         value:
           description: |
@@ -754,20 +754,20 @@ components:
     CustomFields:
       description: |
         1. A JSONB column in database that store arbitrary data of the RefEntry
-        2. The actual data is stored in "custom_fields" as JSON object with format defined in RefGroup's "custom_schema"
-        3. The data in "custom_field" is exactly what would be returned to user who's gonna consume. Client is in charge of any further transformation for UI's special needs.
+        2. The actual data is stored in `custom_fields` as JSON object with format defined in RefGroup's `custom_schema`
+        3. The data in `custom_field` is exactly what would be returned to user who's gonna consume. Client is in charge of any further transformation for UI's special needs.
         4. Default to {}
       type: object
     RefEntryFast:
       description: |
         1. RefEntryFast is specific version of RefEntry for FastBank
-        2. The actual data is stored in "custom_fields"
-        3. Each entry is uniquely identified by a unique "code"
+        2. The actual data is stored in `custom_fields`
+        3. Each entry is uniquely identified by a unique `code`
       type: object
       properties:
         code:
           description: |
-            1. The unique "code" of this RefEntryFast
+            1. The unique `code` of this RefEntryFast
           type: string
           minLength: 2
           maxLength: 32
