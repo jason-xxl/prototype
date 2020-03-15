@@ -5,9 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 
 import org.hibernate.annotations.Type;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 
 @Entity
 @Data
@@ -21,5 +21,5 @@ public class EntryEntity extends BaseEntity {
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
     @Basic(fetch = FetchType.EAGER)
-    private Object customFields;
+    private JSONObject customFields;
 }
