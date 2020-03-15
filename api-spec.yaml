@@ -3,10 +3,7 @@ servers: []
 info:
   version: 0.4.6
   title: Reference Data MS
-  description: |
-    The Reference Data microservice is a foundational service for centrally managing and serving reference data for all channels.
-    * [Arch Design Doc](https://confluence.ocbc.com/display/DigitalCore/Reference+Data?src=contextnavpagetreemode)
-    * [Development Roadmap](https://confluence.ocbc.com/pages/viewpage.action?pageId=21775209&src=contextnavpagetreemode)
+  description: ''
 security:
   - accessCode:
       - read
@@ -14,13 +11,13 @@ security:
 
 tags:
   - name: Customer
-    description: Customer facing external APIs
+    description: ''
   - name: Admin
-    description: Internal APIs for Back Office
+    description: ''
   - name: Service
-    description: Internal APIs for internal microservices
+    description: ''
   - name: Infra
-    description: Internal APIs for infrastructure monitoring needs
+    description: ''
 
 paths:
   /health:
@@ -28,8 +25,7 @@ paths:
       tags:
         - Infra
       summary: Server heartbeats
-      description: |
-        Infra inspect app health by calling the API.
+      description: ''
       security: []
       responses:
         '200':
@@ -41,8 +37,7 @@ paths:
         - Customer
       summary: |
         Retrieve a set of Ref Entries under a Ref Group
-      description: |
-        1. Additionally supports filtering by JSONPath if client only needs a subset
+      description: ''
       security: []
       parameters:
         - $ref: '#/components/parameters/Filter'
@@ -51,25 +46,23 @@ paths:
         - $ref: '#/components/parameters/PageSize'
       responses:
         '200':
-          description: |
-            1. Total is returned for forming pagination at UI
-            2. Caching would be implemented over the full result set without any filtering criteria
+          description: ''
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   Filter:
-                    description: Same value as the request
+                    description: ''
                     type: string
                   Page:
-                    description: Same value as the request
+                    description: ''
                     type: integer
                   PageSize:
-                    description: Same value as the request or default
+                    description: ''
                     type: integer
                   Total:
-                    description: Total records
+                    description: ''
                     type: integer
                   Result:
                     type: array
@@ -86,8 +79,7 @@ paths:
         - Service
       summary: |
         Retrieve a set of Ref Entries under a Ref Group
-      description: |
-        1. Additionally supports filtering by JSONPath if client only needs a subset
+      description: ''
       security: []
       parameters:
         - $ref: '#/components/parameters/Filter'
@@ -96,22 +88,20 @@ paths:
         - $ref: '#/components/parameters/PageSize'
       responses:
         '200':
-          description: |
-            1. Total is returned for forming pagination at UI
-            2. Caching would be implemented over the full result set without any filtering criteria
+          description: ''
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   Page:
-                    description: Same value as the request
+                    description: ''
                     type: integer
                   PageSize:
-                    description: Same value as the request or default
+                    description: ''
                     type: integer
                   Total:
-                    description: Total records
+                    description: ''
                     type: integer
                   Result:
                     type: array
@@ -128,14 +118,14 @@ paths:
         - Service
       summary: |
         Retrieve one item from a Ref Group using its code
-      description: |
+      description: ''
       security: []
       parameters:
         - $ref: '#/components/parameters/RefGroupCode'
         - $ref: '#/components/parameters/RefEntryCode'
       responses:
         '200':
-          description: |
+          description: ''
           content:
             application/json:
               schema:
@@ -150,13 +140,12 @@ paths:
       tags:
         - Admin
       summary: Retrieve all the existing groups.
-      description: |
-        1. Aware of admin entitlement. The `allow` field of RefGroup indicates
+      description: ''
       security: []
       parameters: []
       responses:
         '200':
-          description: |
+          description: ''
           content:
             application/json:
               schema:
@@ -173,13 +162,13 @@ paths:
       tags:
         - Admin
       summary: Retrieve only one RefGroup by its code with configuration details
-      description: |
+      description: ''
       security: []
       parameters:
         - $ref: '#/components/parameters/RefGroupCode'
       responses:
         '200':
-          description: |
+          description: ''
           content:
             application/json:
               schema:
@@ -194,15 +183,12 @@ paths:
       tags:
         - Admin
       summary: Change the configuration detail of a RefGroup, or create a RefGroup if the `code` doesn't exists.
-      description: |
-        1. Success depending on entitlement of the viewer
+      description: ''
       security: []
       parameters:
         - $ref: '#/components/parameters/RefGroupCode'
       requestBody:
-        description: |
-          1. `code` field would be ignored as it's immutable
-          2. Validity check on `custom_schema` and `custom_forms` based on their protocol
+        description: ''
         required: true
         content:
           application/json:
@@ -221,10 +207,7 @@ paths:
       tags:
         - Admin
       summary: Remove a RefGroup permenantly.
-      description: |
-        1. Success depending on entitlement of the viewer
-        2. Return 400 if RefGroup is NOT an empty group
-        3. Back Office Admin should use with extreme caution about whether has existing use cases
+      description: ''
       security: []
       parameters:
         - $ref: '#/components/parameters/RefGroupCode'
@@ -241,8 +224,7 @@ paths:
       tags:
         - Admin
       summary: Retrieve all the RefEntries of a RefGroup
-      description: |
-        1. Support pagination with default page size 20
+      description: ''
       security: []
       parameters:
         - $ref: '#/components/parameters/Filter'
@@ -251,22 +233,20 @@ paths:
         - $ref: '#/components/parameters/PageSize'
       responses:
         '200':
-          description: |
-            1. Total is returned for forming pagination at UI
-            2. Caching would be implemented over the full result set without any filtering criteria
+          description: ''
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   Page:
-                    description: Same value as the request
+                    description: ''
                     type: integer
                   PageSize:
-                    description: Same value as the request or default
+                    description: ''
                     type: integer
                   Total:
-                    description: Total records
+                    description: ''
                     type: integer
                   Result:
                     type: array
@@ -282,14 +262,14 @@ paths:
       tags:
         - Admin
       summary: Retrieve only one RefEntry with all its detail
-      description: |
+      description: ''
       security: []
       parameters:
         - $ref: '#/components/parameters/RefGroupCode'
         - $ref: '#/components/parameters/RefEntryCode'
       responses:
         '200':
-          description: |
+          description: ''
           content:
             application/json:
               schema:
@@ -304,16 +284,13 @@ paths:
       tags:
         - Admin
       summary: Create
-      description: |
-        Change the configuration detail of a RefEntry, or create a RefEntry if the `code` doesn't exists.
+      description: ''
       security: []
       parameters:
         - $ref: '#/components/parameters/RefGroupCode'
         - $ref: '#/components/parameters/RefEntryCode'
       requestBody:
-        description: |
-          1. `custom_fields` is governed by the `custom_schema` of its parent RefGroup.
-          2. 400 would be returned if the data or format doesn't comply to the JSON-SCHEMA.
+        description: ''
         required: true
         content:
           application/json:
@@ -332,7 +309,7 @@ paths:
       tags:
         - Admin
       summary: Remove an RefEntry identified by its `code`
-      description: |
+      description: ''
       security: []
       parameters:
         - $ref: '#/components/parameters/RefGroupCode'
@@ -350,29 +327,27 @@ paths:
       tags:
         - Admin
       summary: Retrieve all existing translation keys
-      description: |
-        1. Support pagination based on chronical order of Translation key
+      description: ''
       security: []
       parameters:
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/PageSize'
       responses:
         '200':
-          description: |
-            1. Total is returned for forming pagination at UI
+          description: ''
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   Page:
-                    description: Same value as the request
+                    description: ''
                     type: integer
                   PageSize:
-                    description: Same value as the request or default
+                    description: ''
                     type: integer
                   Total:
-                    description: Total records
+                    description: ''
                     type: integer
                   Result:
                     type: array
@@ -389,14 +364,13 @@ paths:
       tags:
         - Admin
       summary: Server heartbeat operation
-      description: |
-        The health heartbeat API for infra.
+      description: ''
       security: []
       parameters:
         - $ref: '#/components/parameters/TranslationKey'
       responses:
         '200':
-          description: |
+          description: ''
           content:
             application/json:
               schema:
@@ -413,14 +387,13 @@ paths:
       tags:
         - Admin
       summary: Server heartbeat operation
-      description: |
-        The health heartbeat API for infra.
+      description: ''
       security: []
       parameters:
         - $ref: '#/components/parameters/TranslationKey'
         - $ref: '#/components/parameters/Locale'
       requestBody:
-        description: |
+        description: ''
         required: true
         content:
           application/json:
@@ -439,8 +412,7 @@ paths:
       tags:
         - Admin
       summary: Server heartbeat operation
-      description: |
-        The health heartbeat API for infra.
+      description: ''
       security: []
       parameters:
         - $ref: '#/components/parameters/TranslationKey'
@@ -459,7 +431,7 @@ paths:
         - Service
       summary: |
         Retrieve a set of Ref Entries under a Ref Group `Fast Bank`
-      description: |
+      description: ''
       security: []
       parameters:
         - $ref: '#/components/parameters/Filter'
@@ -467,23 +439,23 @@ paths:
         - $ref: '#/components/parameters/PageSize'
       responses:
         '200':
-          description: |
+          description: ''
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   Filter:
-                    description: Same value as the request
+                    description: ''
                     type: string
                   Page:
-                    description: Same value as the request
+                    description: ''
                     type: integer
                   PageSize:
-                    description: Same value as the request or default
+                    description: ''
                     type: integer
                   Total:
-                    description: Total records
+                    description: ''
                     type: integer
                   Result:
                     type: array
@@ -510,14 +482,14 @@ components:
     Page:
       name: page
       in: query
-      description: The target page to fetch. Default to 1.
+      description: ''
       required: false
       schema:
         type: integer
     PageSize:
       name: page_size
       in: query
-      description: The page size. Implementation should maintain a default page size.
+      description: ''
       required: false
       schema:
         type: integer
@@ -527,28 +499,25 @@ components:
       schema:
         type: string
       required: true
-      description:  ref_group_code
+      description: ''
     RefEntryCode:
       in: path
       name: ref_entry_code
       schema:
         type: string
       required: true
-      description:  ref_entry_code
+      description: ''
     Locale:
       name: locale
       in: path
-      description: |
-        1. `locale` follows the HTTP-Header [Accept-Language](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language)
+      description: ''
       required: true
       schema:
         type: string
     TranslationKey:
       name: translation_key
       in: path
-      description: |
-        1. A string key that identifies a set of translation based on `locale`
-        2. Translation is activated by using this patthen `{{translation_key}}` in the content of a field that enabled translation.
+      description: ''
       required: true
       schema:
         type: string
@@ -557,35 +526,25 @@ components:
     Filter:
       name: filter
       in: query
-      description: |
-        1. Filter the complete result set with a criteria string based on [JSONPath](https://www.baeldung.com/guide-to-jayway-jsonpath)
+      description: ''
       required: false
       schema:
         type: string
   responses:
     200:
-      description: |
-        1. Indicates the request is processed correctly
-        2. For certain product cases, it can mean an acceptable error that the client UI flow has a clearly defined route to handle it, and won't be tracked as error. Use `ExtraInfo` to return the detail info.
+      description: ''
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ExtraInfo'
     400:
-      description: |
-        1. Indicates the request has a problem of either
-          1. Param errors or breaking certai feature specific constraint
-          2. Authentication failure
-          3. Other errors that client or user is responsible for
-        2. Use `ExtraInfo` to return the error detail for client to react accordingly
+      description: ''
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ExtraInfo'
     500:
-      description: |
-        1. Indicates the server processing has generate an error the server side is responsible for
-        2. Use `ExtraInfo` to return the error detail if necessary
+      description: ''
       content:
         application/json:
           schema:
@@ -603,10 +562,7 @@ components:
         - code
         - message
     Permissions:
-      description: |
-        1. Permission is to instruct the BackOffice UI to show valid buttons for the item.
-        2. It only shows up in Back Office Admin APIs
-        3. (IMPORTANT) This field may change after finalising on how the Entitlement service works.
+      description: ''
       type: array
       items:
         type: string
@@ -614,28 +570,21 @@ components:
           - EDIT
           - REMOVE
     RefGroup:
-      description: |
-        1. A collection of reference data entries that shares the same schema.
-        2. Uniquely identified by its `code`.
+      description: ''
       type: object
       properties:
         code:
-          description: |
-            1. Unique key to identify a RefGroup
-            2. Ignored during modification actions
-            3. Returned during query actions
+          description: ''
           type: string
           minLength: 2
           maxLength: 32
         name:
-          description: |
-            1. Displayable title for mainly BackOffice
+          description: ''
           type: string
           minLength: 5
           maxLength: 200
         desc:
-          description: |
-            1. Used by BackOffice to document the purpose and matters that require attention.
+          description: ''
           type: string
           minLength: 0
           maxLength: 5000
@@ -651,35 +600,26 @@ components:
         - custom_schema
         - custom_forms
     RefEntry:
-      description: |
-        1. RefEntry is contained by only one RefGroup and share schema with its siblings
-        2. The actual data is stored in `custom_fields`
-        3. Each entry is uniquely identified by a unique `code`
+      description: ''
       type: object
       properties:
         ref_group_code:
-          description: |
-            1. The unique `code` of the parent RefGroup
+          description: ''
           type: string
           minLength: 2
           maxLength: 32
         code:
-          description: |
-            1. The unique `code` of this RefEntry
+          description: ''
           type: string
           minLength: 2
           maxLength: 32
         desc:
-          description: |
-            1. Used by BackOffice to document the purpose and matters that require attention.
+          description: ''
           type: string
           minLength: 0
           maxLength: 1000
         sec_id:
-          description: |
-            1. Extra factor to adjust the ordering of a list of RefEntry.
-            2. Default to 0; a larger value brings the RefEntry to the top.
-            2. Expected order in SQL query is `order by sec_id desc, id asc`
+          description: ''
           type: integer
         custom_fields:
           $ref: '#/components/schemas/CustomFields'
@@ -690,15 +630,11 @@ components:
         - code
         - custom_fields
     RefEntryUser:
-      description: |
-        1. RefEntry is contained by only one RefGroup and share schema with its siblings
-        2. The `data` field contains the data from `custom_fields` in table
-        3. Each entry is uniquely identified by a unique `code`
+      description: ''
       type: object
       properties:
         code:
-          description: |
-            1. The unique `code` of this RefEntry
+          description: ''
           type: string
           minLength: 2
           maxLength: 32
@@ -708,19 +644,14 @@ components:
         - code
         - data
     TranslationEntry:
-      description: |
-        1. the actual translation based on `locale`
-        2. `locale` field would be ignored during set action
+      description: ''
       type: object
       properties:
         locale:
-          description: |
-            1. `locale` follows the HTTP-Header [Accept-Language](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language)
+          description: ''
           type: string
         value:
-          description: |
-            1. the actual translated text to return to UI
-            2. loose constrain on size so that can put a paragraph under one key if required
+          description: ''
           type: string
           minLength: 1
           maxLength: 10000
@@ -740,34 +671,20 @@ components:
           items:
             $ref: '#/components/schemas/TranslationEntry'
     JSONScheme:
-      description: |
-        1. A field storing a valid JSON-Schema definition
-        2. Default: {}
-        3. See [json-schema.org](https://json-schema.org/)
+      description: ''
       type: object
     JSONForms:
-      description: |
-        1. A field storing a valid JSON-Forms definition
-        2. Default: {}
-        3. See [jsonforms.io](https://jsonforms.io/)
+      description: ''
       type: object
     CustomFields:
-      description: |
-        1. A JSONB column in database that store arbitrary data of the RefEntry
-        2. The actual data is stored in `custom_fields` as JSON object with format defined in RefGroup's `custom_schema`
-        3. The data in `custom_field` is exactly what would be returned to user who's gonna consume. Client is in charge of any further transformation for UI's special needs.
-        4. Default to {}
+      description: ''
       type: object
     RefEntryFast:
-      description: |
-        1. RefEntryFast is specific version of RefEntry for FastBank
-        2. The actual data is stored in `custom_fields`
-        3. Each entry is uniquely identified by a unique `code`
+      description: ''
       type: object
       properties:
         code:
-          description: |
-            1. The unique `code` of this RefEntryFast
+          description: ''
           type: string
           minLength: 2
           maxLength: 32
@@ -777,8 +694,7 @@ components:
         - code
         - data
     CustomFieldsFast:
-      description: |
-        1. A JSONB column in database that store arbitrary data of the RefEntry for FastBank case
+      description: ''
       type: object
       properties:
         bank_name:
