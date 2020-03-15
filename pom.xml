@@ -112,7 +112,7 @@
                     <language>spring</language>
                     <configOptions>
                         <sourceFolder>src/main/java</sourceFolder>
-                        <configPackage>com.prototype.mvp.openapi.sconfig</configPackage>
+                        <configPackage>com.prototype.mvp.openapi.config</configPackage>
                     </configOptions>
                     <output>.</output>
                 </configuration>
@@ -127,6 +127,7 @@
                             <modelPackage>com.prototype.mvp.openapi.models</modelPackage>
                             <apiPackage>com.prototype.mvp.openapi.api</apiPackage>
                             <templateDirectory>src/main/resources/templates</templateDirectory>
+                            <ignoreFileOverride>.swagger-codegen-ignore</ignoreFileOverride>
                         </configuration>
                     </execution>
                 </executions>
