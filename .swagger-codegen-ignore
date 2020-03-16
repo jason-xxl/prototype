@@ -23,4 +23,5 @@
 #!docs/README.md
 
 pom.xml
-application.properties
+resources/application.properties
+io/**/*Controller.java
