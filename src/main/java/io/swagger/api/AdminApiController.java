@@ -1,17 +1,20 @@
 package io.swagger.api;
 
-import io.swagger.model.ExtraInfo;
-import io.swagger.model.InlineResponse2001;
-import io.swagger.model.InlineResponse2002;
-import io.swagger.model.RefEntry;
-import io.swagger.model.RefGroup;
-import io.swagger.model.TranslationEntry;
+import io.swagger.model.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
+import lombok.var;
+import org.jooq.DSLContext;
+import org.jooq.JSONB;
+import org.jooq.Result;
+import org.jooq.dsl.tables.Group;
+import org.jooq.dsl.tables.records.GroupRecord;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +28,9 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,6 +43,10 @@ public class AdminApiController implements AdminApi {
     private final ObjectMapper objectMapper;
 
     private final HttpServletRequest request;
+
+    @org.springframework.beans.factory.annotation.Autowired
+    @org.springframework.beans.factory.annotation.Qualifier("dslMvp")
+    private DSLContext dsl;
 
     @org.springframework.beans.factory.annotation.Autowired
     public AdminApiController(ObjectMapper objectMapper, HttpServletRequest request) {
@@ -132,9 +142,28 @@ public class AdminApiController implements AdminApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-                return new ResponseEntity<ExtraInfo>(objectMapper.readValue("{\n  \"code\" : \"code\",\n  \"message\" : \"message\"\n}", ExtraInfo.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
+                Group g = Group.GROUP;
+                Integer id = this.dsl.insertInto(g)
+                        .set(g.CODE, refGroupCode)
+                        .set(g.NAME, body.getName())
+                        .set(g.DESC, body.getDesc())
+                        .set(g.CUSTOM_SCHEMA, JSONB.valueOf(body.getCustomSchema().toString()))
+                        .set(g.CUSTOM_FORMS, JSONB.valueOf(body.getCustomForms().toString()))
+                        .set(g.CREATED_AT, LocalDateTime.now())
+                        .set(g.UPDATED_AT, LocalDateTime.now())
+                        .onConflict(g.CODE)
+                        .doUpdate()
+                        .set(g.NAME, body.getName())
+                        .set(g.DESC, body.getDesc())
+                        .set(g.CUSTOM_SCHEMA, JSONB.valueOf(body.getCustomSchema().toString()))
+                        .set(g.CUSTOM_FORMS, JSONB.valueOf(body.getCustomForms().toString()))
+                        .set(g.UPDATED_AT, LocalDateTime.now())
+                        .returning(g.ID)
+                        .fetchOne().getValue(g.ID);
+
+                return new ResponseEntity<ExtraInfo>(objectMapper.readValue("{\n  \"code\" : \"200\",\n  \"message\" : \"ok\"\n}", ExtraInfo.class), HttpStatus.OK);
+            } catch (Exception e) {
+                log.error("error", e);
                 return new ResponseEntity<ExtraInfo>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
@@ -147,9 +176,14 @@ public class AdminApiController implements AdminApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-                return new ResponseEntity<ExtraInfo>(objectMapper.readValue("{\n  \"code\" : \"code\",\n  \"message\" : \"message\"\n}", ExtraInfo.class), HttpStatus.NOT_IMPLEMENTED);
+                var g = Group.GROUP;
+                int affected = this.dsl.delete(g.GROUP)
+                        .where(g.CODE.equal(refGroupCode))
+                        .execute();
+
+                return new ResponseEntity<ExtraInfo>(objectMapper.readValue("{\n  \"code\" : \"200\",\n  \"message\" : \"\"\n}", ExtraInfo.class), HttpStatus.OK);
             } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
+                log.error("error", e);
                 return new ResponseEntity<ExtraInfo>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
@@ -161,9 +195,24 @@ public class AdminApiController implements AdminApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-                return new ResponseEntity<List<RefGroup>>(objectMapper.readValue("[ {\n  \"allow\" : [ \"EDIT\", \"EDIT\" ],\n  \"custom_forms\" : { },\n  \"custom_schema\" : { },\n  \"code\" : \"code\",\n  \"name\" : \"name\",\n  \"desc\" : \"desc\"\n}, {\n  \"allow\" : [ \"EDIT\", \"EDIT\" ],\n  \"custom_forms\" : { },\n  \"custom_schema\" : { },\n  \"code\" : \"code\",\n  \"name\" : \"name\",\n  \"desc\" : \"desc\"\n} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
+                var g = Group.GROUP;
+                Result<GroupRecord> resultSet = this.dsl.selectFrom(g.GROUP)
+                        .orderBy(g.CODE)
+                        .getResult();
+
+                var result = new LinkedList<RefGroup>();
+                for (var e : result) {
+                    var refGroup = new RefGroup();
+                    refGroup.setCode(e.getCode());
+                    refGroup.setDesc(e.getDesc());
+                    refGroup.setName(e.getName());
+                    refGroup.setCustomForms(new JSONForms(e.getCustomForms().toString()));
+                    result.add(refGroup);
+                }
+
+                return new ResponseEntity<List<RefGroup>>(result, HttpStatus.OK);
+            } catch (Exception e) {
+                log.error("error", e);
                 return new ResponseEntity<List<RefGroup>>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }

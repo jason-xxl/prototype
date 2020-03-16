@@ -2,6 +2,8 @@ package io.swagger.model;
 
 import java.util.Objects;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
@@ -12,41 +14,8 @@ import javax.validation.constraints.*;
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-15T11:43:31.530+08:00[Asia/Singapore]")
-public class JSONScheme {
-
-    @Override
-    public boolean equals(java.lang.Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash();
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class JSONScheme {\n");
-
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces
-     * (except the first line).
-     */
-    private String toIndentedString(java.lang.Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
+public class JSONScheme extends JSONObject {
+    public JSONScheme(String source) throws JSONException {
+        super(source);
     }
 }
