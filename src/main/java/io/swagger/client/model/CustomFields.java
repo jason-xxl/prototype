@@ -31,4 +31,7 @@ public class CustomFields extends JSONObject {
   public CustomFields(String source) throws JSONException {
     super(source);
   }
+  public CustomFields() {
+    super();
+  }
 }

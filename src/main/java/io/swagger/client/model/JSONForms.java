@@ -30,4 +30,7 @@ public class JSONForms extends JSONObject {
   public JSONForms(String source) throws JSONException {
     super(source);
   }
+  public JSONForms() {
+    super();
+  }
 }

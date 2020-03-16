@@ -6,6 +6,7 @@ import io.swagger.annotations.*;
 import lombok.var;
 import org.jooq.DSLContext;
 import org.jooq.JSONB;
+import org.jooq.Record;
 import org.jooq.Result;
 import org.jooq.dsl.tables.Group;
 import org.jooq.dsl.tables.records.GroupRecord;
@@ -177,10 +178,10 @@ public class AdminApiController implements AdminApi {
         if (accept != null && accept.contains("application/json")) {
             try {
                 var g = Group.GROUP;
-                int affected = this.dsl.delete(g.GROUP)
+                int affected = this.dsl.deleteFrom(g.GROUP)
                         .where(g.CODE.equal(refGroupCode))
                         .execute();
-
+                log.info("affected {}", affected);
                 return new ResponseEntity<ExtraInfo>(objectMapper.readValue("{\n  \"code\" : \"200\",\n  \"message\" : \"\"\n}", ExtraInfo.class), HttpStatus.OK);
             } catch (IOException e) {
                 log.error("error", e);
@@ -198,10 +199,12 @@ public class AdminApiController implements AdminApi {
                 var g = Group.GROUP;
                 Result<GroupRecord> resultSet = this.dsl.selectFrom(g.GROUP)
                         .orderBy(g.CODE)
-                        .getResult();
+                        .fetch();
+
+                // log.info("adminRefGroupsGet resultSet {}", resultSet);
 
                 var result = new LinkedList<RefGroup>();
-                for (var e : result) {
+                for (var e : resultSet) {
                     var refGroup = new RefGroup();
                     refGroup.setCode(e.getCode());
                     refGroup.setDesc(e.getDesc());
@@ -210,9 +213,10 @@ public class AdminApiController implements AdminApi {
                     result.add(refGroup);
                 }
 
+                // log.info("adminRefGroupsGet result {}", result);
                 return new ResponseEntity<List<RefGroup>>(result, HttpStatus.OK);
             } catch (Exception e) {
-                log.error("error", e);
+                log.error("adminRefGroupsGet error", e);
                 return new ResponseEntity<List<RefGroup>>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }

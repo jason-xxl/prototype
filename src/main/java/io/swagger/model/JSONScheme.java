@@ -18,4 +18,7 @@ public class JSONScheme extends JSONObject {
     public JSONScheme(String source) throws JSONException {
         super(source);
     }
+    public JSONScheme() {
+        super();
+    }
 }

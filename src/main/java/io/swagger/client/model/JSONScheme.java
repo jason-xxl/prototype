@@ -14,6 +14,7 @@ package io.swagger.client.model;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.validation.annotation.Validated;
@@ -29,5 +30,8 @@ import javax.validation.constraints.*;
 public class JSONScheme extends JSONObject {
   public JSONScheme(String source) throws JSONException {
     super(source);
+  }
+  public JSONScheme() {
+    super();
   }
 }
