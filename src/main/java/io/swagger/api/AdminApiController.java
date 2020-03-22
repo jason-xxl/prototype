@@ -8,7 +8,9 @@ import org.jooq.DSLContext;
 import org.jooq.JSONB;
 import org.jooq.Record;
 import org.jooq.Result;
+import org.jooq.dsl.tables.Entry;
 import org.jooq.dsl.tables.Group;
+import org.jooq.dsl.tables.records.EntryRecord;
 import org.jooq.dsl.tables.records.GroupRecord;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -75,66 +77,112 @@ public class AdminApiController implements AdminApi {
             , @ApiParam(value = "") @Valid @RequestParam(value = "page", required = false) Integer page
             , @ApiParam(value = "") @Valid @RequestParam(value = "page_size", required = false) Integer pageSize
     ) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<InlineResponse2001>(objectMapper.readValue("{\n  \"PageSize\" : 6,\n  \"Total\" : 1,\n  \"Page\" : 0,\n  \"Result\" : [ {\n    \"allow\" : [ \"EDIT\", \"EDIT\" ],\n    \"sec_id\" : 5,\n    \"code\" : \"code\",\n    \"custom_fields\" : { },\n    \"ref_group_code\" : \"ref_group_code\",\n    \"desc\" : \"desc\"\n  }, {\n    \"allow\" : [ \"EDIT\", \"EDIT\" ],\n    \"sec_id\" : 5,\n    \"code\" : \"code\",\n    \"custom_fields\" : { },\n    \"ref_group_code\" : \"ref_group_code\",\n    \"desc\" : \"desc\"\n  } ]\n}", InlineResponse2001.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<InlineResponse2001>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
+        try {
 
-        return new ResponseEntity<InlineResponse2001>(HttpStatus.NOT_IMPLEMENTED);
+            var e = Entry.ENTRY;
+            Result<EntryRecord> resultSet = this.dsl.selectFrom(e.ENTRY)
+                    .where(e.GROUP_CODE.equal(refGroupCode))
+                    .orderBy(e.SEQ_ID.desc(), e.CODE.asc())
+                    .fetch();
+
+            // log.info("adminRefGroupsGet resultSet {}", resultSet);
+
+            var result = new LinkedList<RefEntry>();
+            for (var r : resultSet) {
+                var refEntry = new RefEntry();
+                refEntry.setCode(r.getCode());
+                refEntry.setDesc(r.getDesc());
+                refEntry.setSecId(r.getSeqId());
+                refEntry.setCustomFields(new CustomFields(r.getCustomFields().toString()));
+                result.add(refEntry);
+            }
+
+            var response = new InlineResponse2001();
+            response.setResult(result);
+
+            // log.info("adminRefGroupsGet result {}", result);
+            return new ResponseEntity<InlineResponse2001>(response, HttpStatus.OK);
+
+        } catch (Exception e) {
+            log.error("Couldn't serialize response for content type application/json", e);
+            return new ResponseEntity<InlineResponse2001>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     public ResponseEntity<RefEntry> adminRefGroupRefGroupCodeRefEntryRefEntryCodeGet(@ApiParam(value = "", required = true) @PathVariable("ref_group_code") String refGroupCode
             , @ApiParam(value = "", required = true) @PathVariable("ref_entry_code") String refEntryCode
     ) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<RefEntry>(objectMapper.readValue("{\n  \"allow\" : [ \"EDIT\", \"EDIT\" ],\n  \"sec_id\" : 5,\n  \"code\" : \"code\",\n  \"custom_fields\" : { },\n  \"ref_group_code\" : \"ref_group_code\",\n  \"desc\" : \"desc\"\n}", RefEntry.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<RefEntry>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
+        try {
+            var e = Entry.ENTRY;
+            EntryRecord result = this.dsl.selectFrom(e.ENTRY)
+                    .where(e.GROUP_CODE.equal(refGroupCode))
+                    .and(e.CODE.equal(refGroupCode))
+                    .fetchOne();
 
-        return new ResponseEntity<RefEntry>(HttpStatus.NOT_IMPLEMENTED);
+            // log.info("adminRefGroupsGet resultSet {}", resultSet);
+
+            var refEntry = new RefEntry();
+            refEntry.setRefGroupCode(result.getGroupCode());
+            refEntry.setCode(result.getCode());
+            refEntry.setDesc(result.getDesc());
+            refEntry.setSecId(result.getSeqId());
+            refEntry.setCustomFields(new CustomFields(result.getCustomFields().toString()));
+
+            // log.info("adminRefGroupsGet result {}", result);
+            return new ResponseEntity<RefEntry>(refEntry, HttpStatus.OK);
+        } catch (Exception e) {
+            log.error("error", e);
+            return new ResponseEntity<RefEntry>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     public ResponseEntity<ExtraInfo> adminRefGroupRefGroupCodeRefEntryRefEntryCodeSetPost(@ApiParam(value = "", required = true) @Valid @RequestBody RefEntry body
             , @ApiParam(value = "", required = true) @PathVariable("ref_group_code") String refGroupCode
             , @ApiParam(value = "", required = true) @PathVariable("ref_entry_code") String refEntryCode
     ) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<ExtraInfo>(objectMapper.readValue("{\n  \"code\" : \"code\",\n  \"message\" : \"message\"\n}", ExtraInfo.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<ExtraInfo>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
 
-        return new ResponseEntity<ExtraInfo>(HttpStatus.NOT_IMPLEMENTED);
+        try {
+
+            Entry e = Entry.ENTRY;
+            Integer id = this.dsl.insertInto(e)
+                    .set(e.GROUP_CODE, refGroupCode)
+                    .set(e.CODE, refEntryCode)
+                    .set(e.DESC, body.getDesc())
+                    .set(e.SEQ_ID, body.getSecId())
+                    .set(e.CUSTOM_FIELDS, JSONB.valueOf(body.getCustomFields().toString()))
+                    .set(e.CREATED_AT, LocalDateTime.now())
+                    .set(e.UPDATED_AT, LocalDateTime.now())
+                    .onConflict(e.GROUP_CODE, e.CODE)
+                    .doUpdate()
+                    .set(e.DESC, body.getDesc())
+                    .set(e.SEQ_ID, body.getSecId())
+                    .set(e.CUSTOM_FIELDS, JSONB.valueOf(body.getCustomFields().toString()))
+                    .set(e.UPDATED_AT, LocalDateTime.now())
+                    .returning(e.ID)
+                    .fetchOne().getValue(e.ID);
+
+            return new ResponseEntity<ExtraInfo>(objectMapper.readValue("{\n  \"code\" : \"200\",\n  \"message\" : \"ok\"\n}", ExtraInfo.class), HttpStatus.OK);
+        } catch (IOException e) {
+            log.error("Couldn't serialize response for content type application/json", e);
+            return new ResponseEntity<ExtraInfo>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     public ResponseEntity<ExtraInfo> adminRefGroupRefGroupCodeRefEntryRefEntryCodeUnsetPost(@ApiParam(value = "", required = true) @PathVariable("ref_group_code") String refGroupCode
             , @ApiParam(value = "", required = true) @PathVariable("ref_entry_code") String refEntryCode
     ) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<ExtraInfo>(objectMapper.readValue("{\n  \"code\" : \"code\",\n  \"message\" : \"message\"\n}", ExtraInfo.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<ExtraInfo>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+        try {
+            var e = Entry.ENTRY;
+            int affected = this.dsl.deleteFrom(e.ENTRY)
+                    .where(e.CODE.equal(refEntryCode))
+                    .and(e.GROUP_CODE.equal(refGroupCode))
+                    .execute();
+            log.info("affected {}", affected);
+            return new ResponseEntity<ExtraInfo>(objectMapper.readValue("{\n  \"code\" : \"200\",\n  \"message\" : \"\"\n}", ExtraInfo.class), HttpStatus.OK);
+        } catch (IOException e) {
+            log.error("error", e);
+            return new ResponseEntity<ExtraInfo>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-        return new ResponseEntity<ExtraInfo>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     public ResponseEntity<ExtraInfo> adminRefGroupRefGroupCodeSetPost(@ApiParam(value = "", required = true) @Valid @RequestBody RefGroup body
@@ -174,54 +222,44 @@ public class AdminApiController implements AdminApi {
 
     public ResponseEntity<ExtraInfo> adminRefGroupRefGroupCodeUnsetPost(@ApiParam(value = "", required = true) @PathVariable("ref_group_code") String refGroupCode
     ) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                var g = Group.GROUP;
-                int affected = this.dsl.deleteFrom(g.GROUP)
-                        .where(g.CODE.equal(refGroupCode))
-                        .execute();
-                log.info("affected {}", affected);
-                return new ResponseEntity<ExtraInfo>(objectMapper.readValue("{\n  \"code\" : \"200\",\n  \"message\" : \"\"\n}", ExtraInfo.class), HttpStatus.OK);
-            } catch (IOException e) {
-                log.error("error", e);
-                return new ResponseEntity<ExtraInfo>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+        try {
+            var g = Group.GROUP;
+            int affected = this.dsl.deleteFrom(g.GROUP)
+                    .where(g.CODE.equal(refGroupCode))
+                    .execute();
+            log.info("affected {}", affected);
+            return new ResponseEntity<ExtraInfo>(objectMapper.readValue("{\n  \"code\" : \"200\",\n  \"message\" : \"\"\n}", ExtraInfo.class), HttpStatus.OK);
+        } catch (IOException e) {
+            log.error("error", e);
+            return new ResponseEntity<ExtraInfo>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-        return new ResponseEntity<ExtraInfo>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     public ResponseEntity<List<RefGroup>> adminRefGroupsGet() {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                var g = Group.GROUP;
-                Result<GroupRecord> resultSet = this.dsl.selectFrom(g.GROUP)
-                        .orderBy(g.CODE)
-                        .fetch();
+        try {
+            var g = Group.GROUP;
+            Result<GroupRecord> resultSet = this.dsl.selectFrom(g.GROUP)
+                    .orderBy(g.CODE)
+                    .fetch();
 
-                // log.info("adminRefGroupsGet resultSet {}", resultSet);
+            // log.info("adminRefGroupsGet resultSet {}", resultSet);
 
-                var result = new LinkedList<RefGroup>();
-                for (var e : resultSet) {
-                    var refGroup = new RefGroup();
-                    refGroup.setCode(e.getCode());
-                    refGroup.setDesc(e.getDesc());
-                    refGroup.setName(e.getName());
-                    refGroup.setCustomForms(new JSONForms(e.getCustomForms().toString()));
-                    result.add(refGroup);
-                }
-
-                // log.info("adminRefGroupsGet result {}", result);
-                return new ResponseEntity<List<RefGroup>>(result, HttpStatus.OK);
-            } catch (Exception e) {
-                log.error("adminRefGroupsGet error", e);
-                return new ResponseEntity<List<RefGroup>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            var result = new LinkedList<RefGroup>();
+            for (var e : resultSet) {
+                var refGroup = new RefGroup();
+                refGroup.setCode(e.getCode());
+                refGroup.setDesc(e.getDesc());
+                refGroup.setName(e.getName());
+                refGroup.setCustomForms(new JSONForms(e.getCustomForms().toString()));
+                result.add(refGroup);
             }
-        }
 
-        return new ResponseEntity<List<RefGroup>>(HttpStatus.NOT_IMPLEMENTED);
+            // log.info("adminRefGroupsGet result {}", result);
+            return new ResponseEntity<List<RefGroup>>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            log.error("adminRefGroupsGet error", e);
+            return new ResponseEntity<List<RefGroup>>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     public ResponseEntity<List<TranslationEntry>> adminTranslationTranslationKeyGet(@Size(min = 1, max = 200) @ApiParam(value = "", required = true) @PathVariable("translation_key") String translationKey

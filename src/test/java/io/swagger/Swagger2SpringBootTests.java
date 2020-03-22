@@ -5,9 +5,8 @@ import io.swagger.client.ApiException;
 import io.swagger.client.Configuration;
 import io.swagger.client.api.AdminApi;
 import io.swagger.client.api.CustomerApi;
-import io.swagger.client.model.JSONForms;
-import io.swagger.client.model.JSONScheme;
-import io.swagger.client.model.RefGroup;
+import io.swagger.client.model.*;
+import io.swagger.models.auth.In;
 import lombok.SneakyThrows;
 import lombok.var;
 import org.json.JSONException;
@@ -52,52 +51,92 @@ public class Swagger2SpringBootTests {
     }
 
     @Test
-    public void testAll() {
+    public void prepareDevData() {
 
         try {
+
             var adminApi = this.getAdminApi();
 
-            var result = adminApi.adminRefGroupsGet();
-            logger.info("result {}", result.toString());
+            for (Integer g = 0; g < 10; g++) {
 
-            //assertTrue(result.isEmpty());
+                var groupCode = String.format("Group_%d", g);
+                var refGroup = new RefGroup();
+                refGroup.setName("Test Group");
+                refGroup.setDesc("It's a Test Group");
+                refGroup.setCustomForms(new JSONForms("{}"));
+                refGroup.setCustomSchema(new JSONScheme("{}"));
 
-            var refGroup = new RefGroup();
-            refGroup.setName("ANameNameName");
-            refGroup.setDesc("ADescDescDesc");
-            refGroup.setCustomForms(new JSONForms("{}"));
-            refGroup.setCustomSchema(new JSONScheme("{}"));
-            var extraInfo = adminApi.adminRefGroupRefGroupCodeSetPost(refGroup, "AAA");
+                adminApi.adminRefGroupRefGroupCodeSetPost(refGroup, groupCode);
 
-            var refGroup2 = new RefGroup();
-            refGroup2.setName("NameNameName");
-            refGroup2.setDesc("DescDescDesc");
-            refGroup2.setCustomForms(new JSONForms("{}"));
-            refGroup2.setCustomSchema(new JSONScheme("{}"));
-            var extraInfo2 = adminApi.adminRefGroupRefGroupCodeSetPost(refGroup2, "BBB");
+                for (Integer i = 0; i < 10; i++) {
+                    var refEntry = new RefEntry();
+                    var entryCode = String.format("Entry_%d", i);
+                    refEntry.setCode(entryCode);
+                    refEntry.setRefGroupCode(groupCode);
+                    refEntry.setDesc(String.format("Desc_%d", i));
+                    refEntry.setSecId(i);
+                    refEntry.setCustomFields(new CustomFields("{}"));
 
-            logger.info("extraInfo {}", result.toString());
-
-            var result2 = adminApi.adminRefGroupsGet();
-            logger.info("result2 {}", result2.toString());
-
-            assertEquals(2, result2.size());
-
-
-            var extraInfo3 = adminApi.adminRefGroupRefGroupCodeUnsetPost("AAA");
-            var extraInfo4 = adminApi.adminRefGroupRefGroupCodeUnsetPost("BBB");
-
-            var result3 = adminApi.adminRefGroupsGet();
-            logger.info("result3 {}", result3.toString());
-
-            assertTrue(result.isEmpty());
+                    adminApi.adminRefGroupRefGroupCodeRefEntryRefEntryCodeSetPost(refEntry, groupCode, entryCode);
+                }
+            }
 
         } catch (ApiException e) {
             e.printStackTrace();
             logger.info("{}", e.getResponseBody());
-        } catch (Exception e){
+        } catch (Exception e) {
             logger.info("Exception {}", e.toString());
 
         }
     }
+//
+//    @Test
+//    public void testGroup() {
+//
+//        try {
+//            var adminApi = this.getAdminApi();
+//
+//            var result = adminApi.adminRefGroupsGet();
+//            logger.info("result {}", result.toString());
+//
+//            //assertTrue(result.isEmpty());
+//
+//            var refGroup = new RefGroup();
+//            refGroup.setName("ANameNameName");
+//            refGroup.setDesc("ADescDescDesc");
+//            refGroup.setCustomForms(new JSONForms("{}"));
+//            refGroup.setCustomSchema(new JSONScheme("{}"));
+//            var extraInfo = adminApi.adminRefGroupRefGroupCodeSetPost(refGroup, "AAA");
+//
+//            var refGroup2 = new RefGroup();
+//            refGroup2.setName("NameNameName");
+//            refGroup2.setDesc("DescDescDesc");
+//            refGroup2.setCustomForms(new JSONForms("{}"));
+//            refGroup2.setCustomSchema(new JSONScheme("{}"));
+//            var extraInfo2 = adminApi.adminRefGroupRefGroupCodeSetPost(refGroup2, "BBB");
+//
+//            logger.info("extraInfo {}", result.toString());
+//
+//            var result2 = adminApi.adminRefGroupsGet();
+//            logger.info("result2 {}", result2.toString());
+//
+//            assertEquals(2, result2.size());
+//
+//
+//            var extraInfo3 = adminApi.adminRefGroupRefGroupCodeUnsetPost("AAA");
+//            var extraInfo4 = adminApi.adminRefGroupRefGroupCodeUnsetPost("BBB");
+//
+//            var result3 = adminApi.adminRefGroupsGet();
+//            logger.info("result3 {}", result3.toString());
+//
+//            assertTrue(result.isEmpty());
+//
+//        } catch (ApiException e) {
+//            e.printStackTrace();
+//            logger.info("{}", e.getResponseBody());
+//        } catch (Exception e) {
+//            logger.info("Exception {}", e.toString());
+//
+//        }
+//    }
 }
