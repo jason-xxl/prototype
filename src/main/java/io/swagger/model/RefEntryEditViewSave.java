@@ -5,60 +5,39 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.model.CustomFields;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * TranslationEntry
+ * RefEntryEditViewSave
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-23T05:23:46.663+08:00[Asia/Singapore]")
-public class TranslationEntry   {
-  @JsonProperty("locale")
-  private String locale = null;
+public class RefEntryEditViewSave   {
+  @JsonProperty("custom_fields")
+  private CustomFields customFields = null;
 
-  @JsonProperty("value")
-  private String value = null;
-
-  public TranslationEntry locale(String locale) {
-    this.locale = locale;
+  public RefEntryEditViewSave customFields(CustomFields customFields) {
+    this.customFields = customFields;
     return this;
   }
 
   /**
-   * Get locale
-   * @return locale
+   * Get customFields
+   * @return customFields
   **/
   @ApiModelProperty(required = true, value = "")
       @NotNull
 
-    public String getLocale() {
-    return locale;
+    @Valid
+    public CustomFields getCustomFields() {
+    return customFields;
   }
 
-  public void setLocale(String locale) {
-    this.locale = locale;
-  }
-
-  public TranslationEntry value(String value) {
-    this.value = value;
-    return this;
-  }
-
-  /**
-   * Get value
-   * @return value
-  **/
-  @ApiModelProperty(required = true, value = "")
-      @NotNull
-
-  @Size(min=1,max=10000)   public String getValue() {
-    return value;
-  }
-
-  public void setValue(String value) {
-    this.value = value;
+  public void setCustomFields(CustomFields customFields) {
+    this.customFields = customFields;
   }
 
 
@@ -70,23 +49,21 @@ public class TranslationEntry   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TranslationEntry translationEntry = (TranslationEntry) o;
-    return Objects.equals(this.locale, translationEntry.locale) &&
-        Objects.equals(this.value, translationEntry.value);
+    RefEntryEditViewSave refEntryEditViewSave = (RefEntryEditViewSave) o;
+    return Objects.equals(this.customFields, refEntryEditViewSave.customFields);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(locale, value);
+    return Objects.hash(customFields);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TranslationEntry {\n");
+    sb.append("class RefEntryEditViewSave {\n");
     
-    sb.append("    locale: ").append(toIndentedString(locale)).append("\n");
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("    customFields: ").append(toIndentedString(customFields)).append("\n");
     sb.append("}");
     return sb.toString();
   }

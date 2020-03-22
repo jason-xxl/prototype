@@ -25,8 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-15T11:43:31.530+08:00[Asia/Singapore]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-23T05:23:46.663+08:00[Asia/Singapore]")
 @Controller
 public class ServiceApiController implements ServiceApi {
 
@@ -42,11 +41,11 @@ public class ServiceApiController implements ServiceApi {
         this.request = request;
     }
 
-    public ResponseEntity<InlineResponse2001> serviceRefGroupRefGroupCodeRefEntriesGet(@ApiParam(value = "", required = true) @PathVariable("ref_group_code") String refGroupCode
-            , @ApiParam(value = "") @Valid @RequestParam(value = "filter", required = false) String filter
-            , @ApiParam(value = "") @Valid @RequestParam(value = "page", required = false) Integer page
-            , @ApiParam(value = "") @Valid @RequestParam(value = "page_size", required = false) Integer pageSize
-    ) {
+    public ResponseEntity<InlineResponse2001> serviceRefGroupRefGroupCodeRefEntriesGet(@ApiParam(value = "",required=true) @PathVariable("ref_group_code") String refGroupCode
+,@ApiParam(value = "") @Valid @RequestParam(value = "filter", required = false) String filter
+,@ApiParam(value = "") @Valid @RequestParam(value = "page", required = false) Integer page
+,@ApiParam(value = "") @Valid @RequestParam(value = "page_size", required = false) Integer pageSize
+) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
@@ -60,9 +59,9 @@ public class ServiceApiController implements ServiceApi {
         return new ResponseEntity<InlineResponse2001>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<RefEntry> serviceRefGroupRefGroupCodeRefEntryRefEntryCodeGet(@ApiParam(value = "", required = true) @PathVariable("ref_group_code") String refGroupCode
-            , @ApiParam(value = "", required = true) @PathVariable("ref_entry_code") String refEntryCode
-    ) {
+    public ResponseEntity<RefEntry> serviceRefGroupRefGroupCodeRefEntryRefEntryCodeGet(@ApiParam(value = "",required=true) @PathVariable("ref_group_code") String refGroupCode
+,@ApiParam(value = "",required=true) @PathVariable("ref_entry_code") String refEntryCode
+) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
@@ -77,9 +76,9 @@ public class ServiceApiController implements ServiceApi {
     }
 
     public ResponseEntity<InlineResponse2003> serviceRefGroupsFastBanksRefEntriesGet(@ApiParam(value = "") @Valid @RequestParam(value = "filter", required = false) String filter
-            , @ApiParam(value = "") @Valid @RequestParam(value = "page", required = false) Integer page
-            , @ApiParam(value = "") @Valid @RequestParam(value = "page_size", required = false) Integer pageSize
-    ) {
+,@ApiParam(value = "") @Valid @RequestParam(value = "page", required = false) Integer page
+,@ApiParam(value = "") @Valid @RequestParam(value = "page_size", required = false) Integer pageSize
+) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {

@@ -19,54 +19,34 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.swagger.client.model.CustomFields;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * TranslationEntry
+ * RefEntryEditViewSave
  */
 
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-03-23T05:24:28.400+08:00[Asia/Singapore]")
-public class TranslationEntry {
-  @SerializedName("locale")
-  private String locale = null;
+public class RefEntryEditViewSave {
+  @SerializedName("custom_fields")
+  private CustomFields customFields = null;
 
-  @SerializedName("value")
-  private String value = null;
-
-  public TranslationEntry locale(String locale) {
-    this.locale = locale;
+  public RefEntryEditViewSave customFields(CustomFields customFields) {
+    this.customFields = customFields;
     return this;
   }
 
    /**
-   * Get locale
-   * @return locale
+   * Get customFields
+   * @return customFields
   **/
   @Schema(required = true, description = "")
-  public String getLocale() {
-    return locale;
+  public CustomFields getCustomFields() {
+    return customFields;
   }
 
-  public void setLocale(String locale) {
-    this.locale = locale;
-  }
-
-  public TranslationEntry value(String value) {
-    this.value = value;
-    return this;
-  }
-
-   /**
-   * Get value
-   * @return value
-  **/
-  @Schema(required = true, description = "")
-  public String getValue() {
-    return value;
-  }
-
-  public void setValue(String value) {
-    this.value = value;
+  public void setCustomFields(CustomFields customFields) {
+    this.customFields = customFields;
   }
 
 
@@ -78,24 +58,22 @@ public class TranslationEntry {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TranslationEntry translationEntry = (TranslationEntry) o;
-    return Objects.equals(this.locale, translationEntry.locale) &&
-        Objects.equals(this.value, translationEntry.value);
+    RefEntryEditViewSave refEntryEditViewSave = (RefEntryEditViewSave) o;
+    return Objects.equals(this.customFields, refEntryEditViewSave.customFields);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(locale, value);
+    return Objects.hash(customFields);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TranslationEntry {\n");
+    sb.append("class RefEntryEditViewSave {\n");
     
-    sb.append("    locale: ").append(toIndentedString(locale)).append("\n");
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("    customFields: ").append(toIndentedString(customFields)).append("\n");
     sb.append("}");
     return sb.toString();
   }

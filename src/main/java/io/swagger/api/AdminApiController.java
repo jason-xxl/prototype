@@ -1,23 +1,18 @@
 package io.swagger.api;
 
-import io.swagger.model.*;
+import io.swagger.model.ExtraInfo;
+import io.swagger.model.InlineResponse2001;
+import io.swagger.model.InlineResponse2002;
+import io.swagger.model.RefEntryEditView;
+import io.swagger.model.RefEntryEditViewSave;
+import io.swagger.model.RefGroup;
+import io.swagger.model.TranslationEntry;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
-import lombok.var;
-import org.jooq.DSLContext;
-import org.jooq.JSONB;
-import org.jooq.Record;
-import org.jooq.Result;
-import org.jooq.dsl.tables.Entry;
-import org.jooq.dsl.tables.Group;
-import org.jooq.dsl.tables.records.EntryRecord;
-import org.jooq.dsl.tables.records.GroupRecord;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,13 +26,9 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-15T11:43:31.530+08:00[Asia/Singapore]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-23T05:23:46.663+08:00[Asia/Singapore]")
 @Controller
 public class AdminApiController implements AdminApi {
 
@@ -48,17 +39,13 @@ public class AdminApiController implements AdminApi {
     private final HttpServletRequest request;
 
     @org.springframework.beans.factory.annotation.Autowired
-    @org.springframework.beans.factory.annotation.Qualifier("dslMvp")
-    private DSLContext dsl;
-
-    @org.springframework.beans.factory.annotation.Autowired
     public AdminApiController(ObjectMapper objectMapper, HttpServletRequest request) {
         this.objectMapper = objectMapper;
         this.request = request;
     }
 
-    public ResponseEntity<RefGroup> adminRefGroupRefGroupCodeGet(@ApiParam(value = "", required = true) @PathVariable("ref_group_code") String refGroupCode
-    ) {
+    public ResponseEntity<RefGroup> adminRefGroupRefGroupCodeGet(@ApiParam(value = "",required=true) @PathVariable("ref_group_code") String refGroupCode
+) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
@@ -278,10 +265,10 @@ public class AdminApiController implements AdminApi {
         return new ResponseEntity<List<TranslationEntry>>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<ExtraInfo> adminTranslationTranslationKeyLocaleSetPost(@ApiParam(value = "", required = true) @Valid @RequestBody TranslationEntry body
-            , @Size(min = 1, max = 200) @ApiParam(value = "", required = true) @PathVariable("translation_key") String translationKey
-            , @ApiParam(value = "", required = true) @PathVariable("locale") String locale
-    ) {
+    public ResponseEntity<ExtraInfo> adminTranslationTranslationKeyLocaleSetPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody TranslationEntry body
+,@Size(min=1,max=200) @ApiParam(value = "",required=true) @PathVariable("translation_key") String translationKey
+,@ApiParam(value = "",required=true) @PathVariable("locale") String locale
+) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
@@ -295,9 +282,9 @@ public class AdminApiController implements AdminApi {
         return new ResponseEntity<ExtraInfo>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<ExtraInfo> adminTranslationTranslationKeyLocaleUnsetPost(@Size(min = 1, max = 200) @ApiParam(value = "", required = true) @PathVariable("translation_key") String translationKey
-            , @ApiParam(value = "", required = true) @PathVariable("locale") String locale
-    ) {
+    public ResponseEntity<ExtraInfo> adminTranslationTranslationKeyLocaleUnsetPost(@Size(min=1,max=200) @ApiParam(value = "",required=true) @PathVariable("translation_key") String translationKey
+,@ApiParam(value = "",required=true) @PathVariable("locale") String locale
+) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
@@ -312,8 +299,8 @@ public class AdminApiController implements AdminApi {
     }
 
     public ResponseEntity<InlineResponse2002> adminTranslationsGet(@ApiParam(value = "") @Valid @RequestParam(value = "page", required = false) Integer page
-            , @ApiParam(value = "") @Valid @RequestParam(value = "page_size", required = false) Integer pageSize
-    ) {
+,@ApiParam(value = "") @Valid @RequestParam(value = "page_size", required = false) Integer pageSize
+) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {

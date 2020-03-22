@@ -111,7 +111,7 @@ No authorization required
 
 <a name="adminRefGroupRefGroupCodeRefEntryRefEntryCodeGet"></a>
 # **adminRefGroupRefGroupCodeRefEntryRefEntryCodeGet**
-> RefEntry adminRefGroupRefGroupCodeRefEntryRefEntryCodeGet(refGroupCode, refEntryCode)
+> RefEntryEditView adminRefGroupRefGroupCodeRefEntryRefEntryCodeGet(refGroupCode, refEntryCode)
 
 Retrieve only one RefEntry with all its detail
 
@@ -126,7 +126,7 @@ AdminApi apiInstance = new AdminApi();
 String refGroupCode = "refGroupCode_example"; // String | 
 String refEntryCode = "refEntryCode_example"; // String | 
 try {
-    RefEntry result = apiInstance.adminRefGroupRefGroupCodeRefEntryRefEntryCodeGet(refGroupCode, refEntryCode);
+    RefEntryEditView result = apiInstance.adminRefGroupRefGroupCodeRefEntryRefEntryCodeGet(refGroupCode, refEntryCode);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AdminApi#adminRefGroupRefGroupCodeRefEntryRefEntryCodeGet");
@@ -143,7 +143,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RefEntry**](RefEntry.md)
+[**RefEntryEditView**](RefEntryEditView.md)
 
 ### Authorization
 
@@ -168,7 +168,7 @@ Create
 
 
 AdminApi apiInstance = new AdminApi();
-RefEntry body = new RefEntry(); // RefEntry | 
+RefEntryEditViewSave body = new RefEntryEditViewSave(); // RefEntryEditViewSave | 
 String refGroupCode = "refGroupCode_example"; // String | 
 String refEntryCode = "refEntryCode_example"; // String | 
 try {
@@ -184,7 +184,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**RefEntry**](RefEntry.md)|  |
+ **body** | [**RefEntryEditViewSave**](RefEntryEditViewSave.md)|  |
  **refGroupCode** | **String**|  |
  **refEntryCode** | **String**|  |
 

@@ -2,7 +2,7 @@ package io.swagger.api;
 
 import javax.xml.bind.annotation.XmlTransient;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-15T11:43:31.530+08:00[Asia/Singapore]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-23T05:23:46.663+08:00[Asia/Singapore]")
 @javax.xml.bind.annotation.XmlRootElement
 public class ApiResponseMessage {
     public static final int ERROR = 1;
@@ -15,30 +15,29 @@ public class ApiResponseMessage {
     String type;
     String message;
 
-    public ApiResponseMessage() {
-    }
+    public ApiResponseMessage(){}
 
-    public ApiResponseMessage(int code, String message) {
+    public ApiResponseMessage(int code, String message){
         this.code = code;
-        switch (code) {
-            case ERROR:
-                setType("error");
-                break;
-            case WARNING:
-                setType("warning");
-                break;
-            case INFO:
-                setType("info");
-                break;
-            case OK:
-                setType("ok");
-                break;
-            case TOO_BUSY:
-                setType("too busy");
-                break;
-            default:
-                setType("unknown");
-                break;
+        switch(code){
+        case ERROR:
+            setType("error");
+            break;
+        case WARNING:
+            setType("warning");
+            break;
+        case INFO:
+            setType("info");
+            break;
+        case OK:
+            setType("ok");
+            break;
+        case TOO_BUSY:
+            setType("too busy");
+            break;
+        default:
+            setType("unknown");
+            break;
         }
         this.message = message;
     }

@@ -8,7 +8,8 @@ package io.swagger.api;
 import io.swagger.model.ExtraInfo;
 import io.swagger.model.InlineResponse2001;
 import io.swagger.model.InlineResponse2002;
-import io.swagger.model.RefEntry;
+import io.swagger.model.RefEntryEditView;
+import io.swagger.model.RefEntryEditViewSave;
 import io.swagger.model.RefGroup;
 import io.swagger.model.TranslationEntry;
 import io.swagger.annotations.*;
@@ -28,166 +29,165 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
-
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-15T11:43:31.530+08:00[Asia/Singapore]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-23T05:23:46.663+08:00[Asia/Singapore]")
 @Api(value = "admin", description = "the admin API")
 public interface AdminApi {
 
-    @ApiOperation(value = "Retrieve only one RefGroup by its code with configuration details", nickname = "adminRefGroupRefGroupCodeGet", notes = "", response = RefGroup.class, tags = {"Admin",})
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", response = RefGroup.class),
-            @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
-            @ApiResponse(code = 500, message = "", response = ExtraInfo.class)})
+    @ApiOperation(value = "Retrieve only one RefGroup by its code with configuration details", nickname = "adminRefGroupRefGroupCodeGet", notes = "", response = RefGroup.class, tags={ "Admin", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "", response = RefGroup.class),
+        @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
+        @ApiResponse(code = 500, message = "", response = ExtraInfo.class) })
     @RequestMapping(value = "/admin/ref-group/{ref_group_code}",
-            produces = {"application/json"},
-            method = RequestMethod.GET)
-    ResponseEntity<RefGroup> adminRefGroupRefGroupCodeGet(@ApiParam(value = "", required = true) @PathVariable("ref_group_code") String refGroupCode
-    );
+        produces = { "application/json" }, 
+        method = RequestMethod.GET)
+    ResponseEntity<RefGroup> adminRefGroupRefGroupCodeGet(@ApiParam(value = "",required=true) @PathVariable("ref_group_code") String refGroupCode
+);
 
 
-    @ApiOperation(value = "Retrieve all the RefEntries of a RefGroup", nickname = "adminRefGroupRefGroupCodeRefEntriesGet", notes = "", response = InlineResponse2001.class, tags = {"Admin",})
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", response = InlineResponse2001.class),
-            @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
-            @ApiResponse(code = 500, message = "", response = ExtraInfo.class)})
+    @ApiOperation(value = "Retrieve all the RefEntries of a RefGroup", nickname = "adminRefGroupRefGroupCodeRefEntriesGet", notes = "", response = InlineResponse2001.class, tags={ "Admin", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "", response = InlineResponse2001.class),
+        @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
+        @ApiResponse(code = 500, message = "", response = ExtraInfo.class) })
     @RequestMapping(value = "/admin/ref-group/{ref_group_code}/ref-entries/",
-            produces = {"application/json"},
-            method = RequestMethod.GET)
-    ResponseEntity<InlineResponse2001> adminRefGroupRefGroupCodeRefEntriesGet(@ApiParam(value = "", required = true) @PathVariable("ref_group_code") String refGroupCode
-            , @ApiParam(value = "") @Valid @RequestParam(value = "filter", required = false) String filter
-            , @ApiParam(value = "") @Valid @RequestParam(value = "page", required = false) Integer page
-            , @ApiParam(value = "") @Valid @RequestParam(value = "page_size", required = false) Integer pageSize
-    );
+        produces = { "application/json" }, 
+        method = RequestMethod.GET)
+    ResponseEntity<InlineResponse2001> adminRefGroupRefGroupCodeRefEntriesGet(@ApiParam(value = "",required=true) @PathVariable("ref_group_code") String refGroupCode
+,@ApiParam(value = "") @Valid @RequestParam(value = "filter", required = false) String filter
+,@ApiParam(value = "") @Valid @RequestParam(value = "page", required = false) Integer page
+,@ApiParam(value = "") @Valid @RequestParam(value = "page_size", required = false) Integer pageSize
+);
 
 
-    @ApiOperation(value = "Retrieve only one RefEntry with all its detail", nickname = "adminRefGroupRefGroupCodeRefEntryRefEntryCodeGet", notes = "", response = RefEntry.class, tags = {"Admin",})
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", response = RefEntry.class),
-            @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
-            @ApiResponse(code = 500, message = "", response = ExtraInfo.class)})
+    @ApiOperation(value = "Retrieve only one RefEntry with all its detail", nickname = "adminRefGroupRefGroupCodeRefEntryRefEntryCodeGet", notes = "", response = RefEntryEditView.class, tags={ "Admin", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "", response = RefEntryEditView.class),
+        @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
+        @ApiResponse(code = 500, message = "", response = ExtraInfo.class) })
     @RequestMapping(value = "/admin/ref-group/{ref_group_code}/ref-entry/{ref_entry_code}",
-            produces = {"application/json"},
-            method = RequestMethod.GET)
-    ResponseEntity<RefEntry> adminRefGroupRefGroupCodeRefEntryRefEntryCodeGet(@ApiParam(value = "", required = true) @PathVariable("ref_group_code") String refGroupCode
-            , @ApiParam(value = "", required = true) @PathVariable("ref_entry_code") String refEntryCode
-    );
+        produces = { "application/json" }, 
+        method = RequestMethod.GET)
+    ResponseEntity<RefEntryEditView> adminRefGroupRefGroupCodeRefEntryRefEntryCodeGet(@ApiParam(value = "",required=true) @PathVariable("ref_group_code") String refGroupCode
+,@ApiParam(value = "",required=true) @PathVariable("ref_entry_code") String refEntryCode
+);
 
 
-    @ApiOperation(value = "Create", nickname = "adminRefGroupRefGroupCodeRefEntryRefEntryCodeSetPost", notes = "", response = ExtraInfo.class, tags = {"Admin",})
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", response = ExtraInfo.class),
-            @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
-            @ApiResponse(code = 500, message = "", response = ExtraInfo.class)})
+    @ApiOperation(value = "Create", nickname = "adminRefGroupRefGroupCodeRefEntryRefEntryCodeSetPost", notes = "", response = ExtraInfo.class, tags={ "Admin", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "", response = ExtraInfo.class),
+        @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
+        @ApiResponse(code = 500, message = "", response = ExtraInfo.class) })
     @RequestMapping(value = "/admin/ref-group/{ref_group_code}/ref-entry/{ref_entry_code}/set",
-            produces = {"application/json"},
-            consumes = {"application/json"},
-            method = RequestMethod.POST)
-    ResponseEntity<ExtraInfo> adminRefGroupRefGroupCodeRefEntryRefEntryCodeSetPost(@ApiParam(value = "", required = true) @Valid @RequestBody RefEntry body
-            , @ApiParam(value = "", required = true) @PathVariable("ref_group_code") String refGroupCode
-            , @ApiParam(value = "", required = true) @PathVariable("ref_entry_code") String refEntryCode
-    );
+        produces = { "application/json" }, 
+        consumes = { "application/json" },
+        method = RequestMethod.POST)
+    ResponseEntity<ExtraInfo> adminRefGroupRefGroupCodeRefEntryRefEntryCodeSetPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody RefEntryEditViewSave body
+,@ApiParam(value = "",required=true) @PathVariable("ref_group_code") String refGroupCode
+,@ApiParam(value = "",required=true) @PathVariable("ref_entry_code") String refEntryCode
+);
 
 
-    @ApiOperation(value = "Remove an RefEntry identified by its `code`", nickname = "adminRefGroupRefGroupCodeRefEntryRefEntryCodeUnsetPost", notes = "", response = ExtraInfo.class, tags = {"Admin",})
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", response = ExtraInfo.class),
-            @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
-            @ApiResponse(code = 500, message = "", response = ExtraInfo.class)})
+    @ApiOperation(value = "Remove an RefEntry identified by its `code`", nickname = "adminRefGroupRefGroupCodeRefEntryRefEntryCodeUnsetPost", notes = "", response = ExtraInfo.class, tags={ "Admin", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "", response = ExtraInfo.class),
+        @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
+        @ApiResponse(code = 500, message = "", response = ExtraInfo.class) })
     @RequestMapping(value = "/admin/ref-group/{ref_group_code}/ref-entry/{ref_entry_code}/unset",
-            produces = {"application/json"},
-            method = RequestMethod.POST)
-    ResponseEntity<ExtraInfo> adminRefGroupRefGroupCodeRefEntryRefEntryCodeUnsetPost(@ApiParam(value = "", required = true) @PathVariable("ref_group_code") String refGroupCode
-            , @ApiParam(value = "", required = true) @PathVariable("ref_entry_code") String refEntryCode
-    );
+        produces = { "application/json" }, 
+        method = RequestMethod.POST)
+    ResponseEntity<ExtraInfo> adminRefGroupRefGroupCodeRefEntryRefEntryCodeUnsetPost(@ApiParam(value = "",required=true) @PathVariable("ref_group_code") String refGroupCode
+,@ApiParam(value = "",required=true) @PathVariable("ref_entry_code") String refEntryCode
+);
 
 
-    @ApiOperation(value = "Change the configuration detail of a RefGroup, or create a RefGroup if the `code` doesn't exists.", nickname = "adminRefGroupRefGroupCodeSetPost", notes = "", response = ExtraInfo.class, tags = {"Admin",})
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", response = ExtraInfo.class),
-            @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
-            @ApiResponse(code = 500, message = "", response = ExtraInfo.class)})
+    @ApiOperation(value = "Change the configuration detail of a RefGroup, or create a RefGroup if the `code` doesn't exists.", nickname = "adminRefGroupRefGroupCodeSetPost", notes = "", response = ExtraInfo.class, tags={ "Admin", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "", response = ExtraInfo.class),
+        @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
+        @ApiResponse(code = 500, message = "", response = ExtraInfo.class) })
     @RequestMapping(value = "/admin/ref-group/{ref_group_code}/set",
-            produces = {"application/json"},
-            consumes = {"application/json"},
-            method = RequestMethod.POST)
-    ResponseEntity<ExtraInfo> adminRefGroupRefGroupCodeSetPost(@ApiParam(value = "", required = true) @Valid @RequestBody RefGroup body
-            , @ApiParam(value = "", required = true) @PathVariable("ref_group_code") String refGroupCode
-    );
+        produces = { "application/json" }, 
+        consumes = { "application/json" },
+        method = RequestMethod.POST)
+    ResponseEntity<ExtraInfo> adminRefGroupRefGroupCodeSetPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody RefGroup body
+,@ApiParam(value = "",required=true) @PathVariable("ref_group_code") String refGroupCode
+);
 
 
-    @ApiOperation(value = "Remove a RefGroup permenantly.", nickname = "adminRefGroupRefGroupCodeUnsetPost", notes = "", response = ExtraInfo.class, tags = {"Admin",})
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", response = ExtraInfo.class),
-            @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
-            @ApiResponse(code = 500, message = "", response = ExtraInfo.class)})
+    @ApiOperation(value = "Remove a RefGroup permenantly.", nickname = "adminRefGroupRefGroupCodeUnsetPost", notes = "", response = ExtraInfo.class, tags={ "Admin", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "", response = ExtraInfo.class),
+        @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
+        @ApiResponse(code = 500, message = "", response = ExtraInfo.class) })
     @RequestMapping(value = "/admin/ref-group/{ref_group_code}/unset",
-            produces = {"application/json"},
-            method = RequestMethod.POST)
-    ResponseEntity<ExtraInfo> adminRefGroupRefGroupCodeUnsetPost(@ApiParam(value = "", required = true) @PathVariable("ref_group_code") String refGroupCode
-    );
+        produces = { "application/json" }, 
+        method = RequestMethod.POST)
+    ResponseEntity<ExtraInfo> adminRefGroupRefGroupCodeUnsetPost(@ApiParam(value = "",required=true) @PathVariable("ref_group_code") String refGroupCode
+);
 
 
-    @ApiOperation(value = "Retrieve all the existing groups.", nickname = "adminRefGroupsGet", notes = "", response = RefGroup.class, responseContainer = "List", tags = {"Admin",})
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", response = RefGroup.class, responseContainer = "List"),
-            @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
-            @ApiResponse(code = 500, message = "", response = ExtraInfo.class)})
+    @ApiOperation(value = "Retrieve all the existing groups.", nickname = "adminRefGroupsGet", notes = "", response = RefGroup.class, responseContainer = "List", tags={ "Admin", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "", response = RefGroup.class, responseContainer = "List"),
+        @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
+        @ApiResponse(code = 500, message = "", response = ExtraInfo.class) })
     @RequestMapping(value = "/admin/ref-groups",
-            produces = {"application/json"},
-            method = RequestMethod.GET)
+        produces = { "application/json" }, 
+        method = RequestMethod.GET)
     ResponseEntity<List<RefGroup>> adminRefGroupsGet();
 
 
-    @ApiOperation(value = "Server heartbeat operation", nickname = "adminTranslationTranslationKeyGet", notes = "", response = TranslationEntry.class, responseContainer = "List", tags = {"Admin",})
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", response = TranslationEntry.class, responseContainer = "List"),
-            @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
-            @ApiResponse(code = 500, message = "", response = ExtraInfo.class)})
+    @ApiOperation(value = "Server heartbeat operation", nickname = "adminTranslationTranslationKeyGet", notes = "", response = TranslationEntry.class, responseContainer = "List", tags={ "Admin", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "", response = TranslationEntry.class, responseContainer = "List"),
+        @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
+        @ApiResponse(code = 500, message = "", response = ExtraInfo.class) })
     @RequestMapping(value = "/admin/translation/{translation_key}/",
-            produces = {"application/json"},
-            method = RequestMethod.GET)
-    ResponseEntity<List<TranslationEntry>> adminTranslationTranslationKeyGet(@Size(min = 1, max = 200) @ApiParam(value = "", required = true) @PathVariable("translation_key") String translationKey
-    );
+        produces = { "application/json" }, 
+        method = RequestMethod.GET)
+    ResponseEntity<List<TranslationEntry>> adminTranslationTranslationKeyGet(@Size(min=1,max=200) @ApiParam(value = "",required=true) @PathVariable("translation_key") String translationKey
+);
 
 
-    @ApiOperation(value = "Server heartbeat operation", nickname = "adminTranslationTranslationKeyLocaleSetPost", notes = "", response = ExtraInfo.class, tags = {"Admin",})
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", response = ExtraInfo.class),
-            @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
-            @ApiResponse(code = 500, message = "", response = ExtraInfo.class)})
+    @ApiOperation(value = "Server heartbeat operation", nickname = "adminTranslationTranslationKeyLocaleSetPost", notes = "", response = ExtraInfo.class, tags={ "Admin", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "", response = ExtraInfo.class),
+        @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
+        @ApiResponse(code = 500, message = "", response = ExtraInfo.class) })
     @RequestMapping(value = "/admin/translation/{translation_key}/{locale}/set",
-            produces = {"application/json"},
-            consumes = {"application/json"},
-            method = RequestMethod.POST)
-    ResponseEntity<ExtraInfo> adminTranslationTranslationKeyLocaleSetPost(@ApiParam(value = "", required = true) @Valid @RequestBody TranslationEntry body
-            , @Size(min = 1, max = 200) @ApiParam(value = "", required = true) @PathVariable("translation_key") String translationKey
-            , @ApiParam(value = "", required = true) @PathVariable("locale") String locale
-    );
+        produces = { "application/json" }, 
+        consumes = { "application/json" },
+        method = RequestMethod.POST)
+    ResponseEntity<ExtraInfo> adminTranslationTranslationKeyLocaleSetPost(@ApiParam(value = "" ,required=true )  @Valid @RequestBody TranslationEntry body
+,@Size(min=1,max=200) @ApiParam(value = "",required=true) @PathVariable("translation_key") String translationKey
+,@ApiParam(value = "",required=true) @PathVariable("locale") String locale
+);
 
 
-    @ApiOperation(value = "Server heartbeat operation", nickname = "adminTranslationTranslationKeyLocaleUnsetPost", notes = "", response = ExtraInfo.class, tags = {"Admin",})
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", response = ExtraInfo.class),
-            @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
-            @ApiResponse(code = 500, message = "", response = ExtraInfo.class)})
+    @ApiOperation(value = "Server heartbeat operation", nickname = "adminTranslationTranslationKeyLocaleUnsetPost", notes = "", response = ExtraInfo.class, tags={ "Admin", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "", response = ExtraInfo.class),
+        @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
+        @ApiResponse(code = 500, message = "", response = ExtraInfo.class) })
     @RequestMapping(value = "/admin/translation/{translation_key}/{locale}/unset",
-            produces = {"application/json"},
-            method = RequestMethod.POST)
-    ResponseEntity<ExtraInfo> adminTranslationTranslationKeyLocaleUnsetPost(@Size(min = 1, max = 200) @ApiParam(value = "", required = true) @PathVariable("translation_key") String translationKey
-            , @ApiParam(value = "", required = true) @PathVariable("locale") String locale
-    );
+        produces = { "application/json" }, 
+        method = RequestMethod.POST)
+    ResponseEntity<ExtraInfo> adminTranslationTranslationKeyLocaleUnsetPost(@Size(min=1,max=200) @ApiParam(value = "",required=true) @PathVariable("translation_key") String translationKey
+,@ApiParam(value = "",required=true) @PathVariable("locale") String locale
+);
 
 
-    @ApiOperation(value = "Retrieve all existing translation keys", nickname = "adminTranslationsGet", notes = "", response = InlineResponse2002.class, tags = {"Admin",})
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", response = InlineResponse2002.class),
-            @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
-            @ApiResponse(code = 500, message = "", response = ExtraInfo.class)})
+    @ApiOperation(value = "Retrieve all existing translation keys", nickname = "adminTranslationsGet", notes = "", response = InlineResponse2002.class, tags={ "Admin", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "", response = InlineResponse2002.class),
+        @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
+        @ApiResponse(code = 500, message = "", response = ExtraInfo.class) })
     @RequestMapping(value = "/admin/translations/",
-            produces = {"application/json"},
-            method = RequestMethod.GET)
+        produces = { "application/json" }, 
+        method = RequestMethod.GET)
     ResponseEntity<InlineResponse2002> adminTranslationsGet(@ApiParam(value = "") @Valid @RequestParam(value = "page", required = false) Integer page
-            , @ApiParam(value = "") @Valid @RequestParam(value = "page_size", required = false) Integer pageSize
-    );
+,@ApiParam(value = "") @Valid @RequestParam(value = "page_size", required = false) Integer pageSize
+);
 
 }

@@ -19,54 +19,55 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.swagger.client.model.CustomFields;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.IOException;
 /**
- * TranslationEntry
+ * RefEntryEditView
  */
 
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2020-03-23T05:24:28.400+08:00[Asia/Singapore]")
-public class TranslationEntry {
-  @SerializedName("locale")
-  private String locale = null;
+public class RefEntryEditView {
+  @SerializedName("ui_schema")
+  private Object uiSchema = null;
 
-  @SerializedName("value")
-  private String value = null;
+  @SerializedName("custom_fields")
+  private CustomFields customFields = null;
 
-  public TranslationEntry locale(String locale) {
-    this.locale = locale;
+  public RefEntryEditView uiSchema(Object uiSchema) {
+    this.uiSchema = uiSchema;
     return this;
   }
 
    /**
-   * Get locale
-   * @return locale
+   * Get uiSchema
+   * @return uiSchema
   **/
   @Schema(required = true, description = "")
-  public String getLocale() {
-    return locale;
+  public Object getUiSchema() {
+    return uiSchema;
   }
 
-  public void setLocale(String locale) {
-    this.locale = locale;
+  public void setUiSchema(Object uiSchema) {
+    this.uiSchema = uiSchema;
   }
 
-  public TranslationEntry value(String value) {
-    this.value = value;
+  public RefEntryEditView customFields(CustomFields customFields) {
+    this.customFields = customFields;
     return this;
   }
 
    /**
-   * Get value
-   * @return value
+   * Get customFields
+   * @return customFields
   **/
   @Schema(required = true, description = "")
-  public String getValue() {
-    return value;
+  public CustomFields getCustomFields() {
+    return customFields;
   }
 
-  public void setValue(String value) {
-    this.value = value;
+  public void setCustomFields(CustomFields customFields) {
+    this.customFields = customFields;
   }
 
 
@@ -78,24 +79,24 @@ public class TranslationEntry {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TranslationEntry translationEntry = (TranslationEntry) o;
-    return Objects.equals(this.locale, translationEntry.locale) &&
-        Objects.equals(this.value, translationEntry.value);
+    RefEntryEditView refEntryEditView = (RefEntryEditView) o;
+    return Objects.equals(this.uiSchema, refEntryEditView.uiSchema) &&
+        Objects.equals(this.customFields, refEntryEditView.customFields);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(locale, value);
+    return Objects.hash(uiSchema, customFields);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TranslationEntry {\n");
+    sb.append("class RefEntryEditView {\n");
     
-    sb.append("    locale: ").append(toIndentedString(locale)).append("\n");
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("    uiSchema: ").append(toIndentedString(uiSchema)).append("\n");
+    sb.append("    customFields: ").append(toIndentedString(customFields)).append("\n");
     sb.append("}");
     return sb.toString();
   }

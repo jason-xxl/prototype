@@ -23,17 +23,16 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
-
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-15T11:43:31.530+08:00[Asia/Singapore]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-23T05:23:46.663+08:00[Asia/Singapore]")
 @Api(value = "health", description = "the health API")
 public interface HealthApi {
 
-    @ApiOperation(value = "Server heartbeats", nickname = "healthGet", notes = "", response = ExtraInfo.class, tags = {"Infra",})
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "", response = ExtraInfo.class)})
+    @ApiOperation(value = "Server heartbeats", nickname = "healthGet", notes = "", response = ExtraInfo.class, tags={ "Infra", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "", response = ExtraInfo.class) })
     @RequestMapping(value = "/health",
-            produces = {"application/json"},
-            method = RequestMethod.GET)
+        produces = { "application/json" }, 
+        method = RequestMethod.GET)
     ResponseEntity<ExtraInfo> healthGet();
 
 }

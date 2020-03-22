@@ -3,9 +3,9 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**refGroupCode** | **String** |  | 
-**code** | **String** |  | 
+**refGroupCode** | **String** |  |  [optional]
+**code** | **String** |  |  [optional]
 **desc** | **String** |  |  [optional]
 **secId** | **Integer** |  |  [optional]
-**customFields** | [**CustomFields**](CustomFields.md) |  | 
+**customFields** | [**CustomFields**](CustomFields.md) |  |  [optional]
 **allow** | [**Permissions**](Permissions.md) |  |  [optional]
