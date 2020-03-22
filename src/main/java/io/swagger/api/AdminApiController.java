@@ -85,11 +85,12 @@ public class AdminApiController implements AdminApi {
                     .orderBy(e.SEQ_ID.desc(), e.CODE.asc())
                     .fetch();
 
-            // log.info("adminRefGroupsGet resultSet {}", resultSet);
+            log.info("resultSet {}", resultSet);
 
             var result = new LinkedList<RefEntry>();
             for (var r : resultSet) {
                 var refEntry = new RefEntry();
+                refEntry.setRefGroupCode(r.getGroupCode());
                 refEntry.setCode(r.getCode());
                 refEntry.setDesc(r.getDesc());
                 refEntry.setSecId(r.getSeqId());
@@ -100,7 +101,7 @@ public class AdminApiController implements AdminApi {
             var response = new InlineResponse2001();
             response.setResult(result);
 
-            // log.info("adminRefGroupsGet result {}", result);
+            log.info("result {}", result);
             return new ResponseEntity<InlineResponse2001>(response, HttpStatus.OK);
 
         } catch (Exception e) {
