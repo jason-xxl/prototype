@@ -273,7 +273,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RefEntryEditView'
+                $ref: '#/components/schemas/RefEntry'
         '400':
           $ref: '#/components/responses/400'
         '500':
@@ -295,7 +295,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RefEntryEditViewSave'
+              $ref: '#/components/schemas/RefEntry'
       responses:
         '200':
           $ref: '#/components/responses/200'
@@ -625,24 +625,9 @@ components:
           $ref: '#/components/schemas/CustomFields'
         allow:
           $ref: '#/components/schemas/Permissions'
-    RefEntryEditView:
-      description: ''
-      type: object
-      properties:
-        ui_schema:
-          type: object
-        custom_fields:
-          $ref: '#/components/schemas/CustomFields'
       required:
-        - ui_schema
-        - custom_fields
-    RefEntryEditViewSave:
-      description: ''
-      type: object
-      properties:
-        custom_fields:
-          $ref: '#/components/schemas/CustomFields'
-      required:
+        - ref_group_code
+        - code
         - custom_fields
     RefEntryUser:
       description: ''

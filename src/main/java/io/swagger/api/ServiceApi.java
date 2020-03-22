@@ -26,49 +26,50 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-23T05:23:46.663+08:00[Asia/Singapore]")
+
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-03-15T11:43:31.530+08:00[Asia/Singapore]")
 @Api(value = "service", description = "the service API")
 public interface ServiceApi {
 
-    @ApiOperation(value = "Retrieve a set of Ref Entries under a Ref Group ", nickname = "serviceRefGroupRefGroupCodeRefEntriesGet", notes = "", response = InlineResponse2001.class, tags={ "Service", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "", response = InlineResponse2001.class),
-        @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
-        @ApiResponse(code = 500, message = "", response = ExtraInfo.class) })
+    @ApiOperation(value = "Retrieve a set of Ref Entries under a Ref Group ", nickname = "serviceRefGroupRefGroupCodeRefEntriesGet", notes = "", response = InlineResponse2001.class, tags = {"Service",})
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "", response = InlineResponse2001.class),
+            @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
+            @ApiResponse(code = 500, message = "", response = ExtraInfo.class)})
     @RequestMapping(value = "/service/ref-group/{ref_group_code}/ref_entries/",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
-    ResponseEntity<InlineResponse2001> serviceRefGroupRefGroupCodeRefEntriesGet(@ApiParam(value = "",required=true) @PathVariable("ref_group_code") String refGroupCode
-,@ApiParam(value = "") @Valid @RequestParam(value = "filter", required = false) String filter
-,@ApiParam(value = "") @Valid @RequestParam(value = "page", required = false) Integer page
-,@ApiParam(value = "") @Valid @RequestParam(value = "page_size", required = false) Integer pageSize
-);
+            produces = {"application/json"},
+            method = RequestMethod.GET)
+    ResponseEntity<InlineResponse2001> serviceRefGroupRefGroupCodeRefEntriesGet(@ApiParam(value = "", required = true) @PathVariable("ref_group_code") String refGroupCode
+            , @ApiParam(value = "") @Valid @RequestParam(value = "filter", required = false) String filter
+            , @ApiParam(value = "") @Valid @RequestParam(value = "page", required = false) Integer page
+            , @ApiParam(value = "") @Valid @RequestParam(value = "page_size", required = false) Integer pageSize
+    );
 
 
-    @ApiOperation(value = "Retrieve one item from a Ref Group using its code ", nickname = "serviceRefGroupRefGroupCodeRefEntryRefEntryCodeGet", notes = "", response = RefEntry.class, tags={ "Service", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "", response = RefEntry.class),
-        @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
-        @ApiResponse(code = 500, message = "", response = ExtraInfo.class) })
+    @ApiOperation(value = "Retrieve one item from a Ref Group using its code ", nickname = "serviceRefGroupRefGroupCodeRefEntryRefEntryCodeGet", notes = "", response = RefEntry.class, tags = {"Service",})
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "", response = RefEntry.class),
+            @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
+            @ApiResponse(code = 500, message = "", response = ExtraInfo.class)})
     @RequestMapping(value = "/service/ref-group/{ref_group_code}/ref-entry/{ref_entry_code}",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
-    ResponseEntity<RefEntry> serviceRefGroupRefGroupCodeRefEntryRefEntryCodeGet(@ApiParam(value = "",required=true) @PathVariable("ref_group_code") String refGroupCode
-,@ApiParam(value = "",required=true) @PathVariable("ref_entry_code") String refEntryCode
-);
+            produces = {"application/json"},
+            method = RequestMethod.GET)
+    ResponseEntity<RefEntry> serviceRefGroupRefGroupCodeRefEntryRefEntryCodeGet(@ApiParam(value = "", required = true) @PathVariable("ref_group_code") String refGroupCode
+            , @ApiParam(value = "", required = true) @PathVariable("ref_entry_code") String refEntryCode
+    );
 
 
-    @ApiOperation(value = "Retrieve a set of Ref Entries under a Ref Group `Fast Bank` ", nickname = "serviceRefGroupsFastBanksRefEntriesGet", notes = "", response = InlineResponse2003.class, tags={ "Service", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "", response = InlineResponse2003.class),
-        @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
-        @ApiResponse(code = 500, message = "", response = ExtraInfo.class) })
+    @ApiOperation(value = "Retrieve a set of Ref Entries under a Ref Group `Fast Bank` ", nickname = "serviceRefGroupsFastBanksRefEntriesGet", notes = "", response = InlineResponse2003.class, tags = {"Service",})
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "", response = InlineResponse2003.class),
+            @ApiResponse(code = 400, message = "", response = ExtraInfo.class),
+            @ApiResponse(code = 500, message = "", response = ExtraInfo.class)})
     @RequestMapping(value = "/service/ref-groups/fast-banks/ref-entries/",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
+            produces = {"application/json"},
+            method = RequestMethod.GET)
     ResponseEntity<InlineResponse2003> serviceRefGroupsFastBanksRefEntriesGet(@ApiParam(value = "") @Valid @RequestParam(value = "filter", required = false) String filter
-,@ApiParam(value = "") @Valid @RequestParam(value = "page", required = false) Integer page
-,@ApiParam(value = "") @Valid @RequestParam(value = "page_size", required = false) Integer pageSize
-);
+            , @ApiParam(value = "") @Valid @RequestParam(value = "page", required = false) Integer page
+            , @ApiParam(value = "") @Valid @RequestParam(value = "page_size", required = false) Integer pageSize
+    );
 
 }
