@@ -6,6 +6,7 @@ import Dashboard from './dashboard';
 import authProvider from './authProvider';
 import dataProvider from './dataProvider';
 import { createMuiTheme } from '@material-ui/core/styles';
+import { RefEntryEdit } from './refEntry';
 
 const theme = createMuiTheme({
     palette: {
@@ -16,7 +17,7 @@ const theme = createMuiTheme({
 // const dataProvider = jsonServerProvider('https://jsonplaceholder.typicode.com');
 const App = () => (
     <Admin theme={theme} dashboard={Dashboard} authProvider={authProvider} dataProvider={dataProvider}>
-        <Resource name="reference-entries" list={ListGuesser} edit={EditGuesser}/>
+        <Resource name="reference-entries" list={ListGuesser} edit={RefEntryEdit}/>
     </Admin>
 );
 export default App;
