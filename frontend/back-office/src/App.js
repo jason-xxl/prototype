@@ -1,42 +1,14 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+// in src/App.js
+import React from 'react';
+import {Admin, Resource, ListGuesser} from 'react-admin';
+import jsonServerProvider from 'ra-data-json-server';
+import Dashboard from './Dashboard';
+import authProvider from './authProvider';
 
-class App extends Component {
-  state = {
-    isLoading: true,
-    groups: []
-  };
-
-  async componentDidMount() {
-    const response = await fetch('/admin/groups/');
-    const body = await response.json();
-    this.setState({ groups: body, isLoading: false });
-  }
-
-  render() {
-    const {groups, isLoading} = this.state;
-
-    if (isLoading) {
-      return <p>Loading...</p>;
-    }
-
-    return (
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <div className="App-intro">
-              <h2>JUG List</h2>
-              {groups.map(group =>
-                  <div key={group.id}>
-                    {group.name}
-                  </div>
-              )}
-            </div>
-          </header>
-        </div>
-    );
-  }
-}
-
+const dataProvider = jsonServerProvider('https://jsonplaceholder.typicode.com');
+const App = () => (
+    <Admin dashboard={Dashboard} authProvider={authProvider} dataProvider={dataProvider}>
+        <Resource name="users" list={ListGuesser}/>
+    </Admin>
+);
 export default App;
