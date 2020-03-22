@@ -117,7 +117,7 @@ public class AdminApiController implements AdminApi {
             var e = Entry.ENTRY;
             EntryRecord result = this.dsl.selectFrom(e.ENTRY)
                     .where(e.GROUP_CODE.equal(refGroupCode))
-                    .and(e.CODE.equal(refGroupCode))
+                    .and(e.CODE.equal(refEntryCode))
                     .fetchOne();
 
             // log.info("adminRefGroupsGet resultSet {}", resultSet);

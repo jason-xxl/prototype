@@ -28,39 +28,75 @@ export default (type, resource, params) => {
         }),
     };
 
+    console.log("params", type, resource, params)
+    let groupCode = "Group_0";
     switch (resource) {
         case "reference-entries":
             switch (type) {
                 case GET_LIST:
-                    const {page, perPage} = params.pagination;
-                    const {field, order} = params.sort;
-                    const query = {};
-                    url = `${apiUrl}/admin/ref-group/Group_0/ref-entries/`;
+                    url = `${apiUrl}/admin/ref-group/${groupCode}/ref-entries/`;
                     console.log(url);
 
                     return fetch(url, options)
                         .then(response => response.json())
                         .then(response => {
-                            console.log("response0", response);
-
                             let result = {data: response.Result, total: 100};
-                            console.log("result", result);
-
-                            for (let i=0;i<result.data.length; i++){
-                                result.data[i]["id"]=result.data[i]["code"];
+                            for (let i = 0; i < result.data.length; i++) {
+                                result.data[i] = Object.assign({id: result.data[i]["code"]}, result.data[i]);
+                                delete result.data[i]["sec_id"];
+                                delete result.data[i]["code"];
                             }
 
-                            console.log(result);
                             return result;
                         })
                         .catch((err) => {
                             console.log(err);
                         });
                 case GET_ONE:
+                    url = `${apiUrl}/admin/ref-group/${groupCode}/ref-entry/${params.id}`;
+                    console.log("url", url);
+                    return fetch(url, options)
+                        .then(response => response.json())
+                        .then(response => {
+                            console.log(response)
+                            response["id"] = response["code"];
+                            delete response["code"];
+                            response = {data: response};
+                            return response;
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
                 case CREATE:
                 case UPDATE:
                 case DELETE:
                 case GET_MANY:
+                    url = `${apiUrl}/admin/ref-group/${groupCode}/ref-entries/`;
+                    return fetch(url, options)
+                        .then(response => {
+                            response.json()
+                        })
+                        .then(response => {
+                            let result = {data: [], total: 100};
+                            for (let i = 0; i < params.ids.length; i++) {
+                                for (let j = 0; j < response.Result.length; j++) {
+                                    if (response.Result[j]["code"] === params.ids[i]) {
+                                        result.data.push(response.Result[j]);
+                                        break;
+                                    }
+                                }
+                            }
+
+                            for (let i = 0; i < result.data.length; i++) {
+                                result.data[i]["id"] = result.data[i]["code"];
+                            }
+
+                            return result;
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+
                 case GET_MANY_REFERENCE:
                 default:
             }

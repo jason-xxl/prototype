@@ -1,6 +1,6 @@
 // in src/App.js
 import React from 'react';
-import {Admin, Resource, ListGuesser} from 'react-admin';
+import {Admin, Resource, ListGuesser, EditGuesser} from 'react-admin';
 import jsonServerProvider from 'ra-data-json-server';
 import Dashboard from './dashboard';
 import authProvider from './authProvider';
@@ -16,7 +16,7 @@ const theme = createMuiTheme({
 // const dataProvider = jsonServerProvider('https://jsonplaceholder.typicode.com');
 const App = () => (
     <Admin theme={theme} dashboard={Dashboard} authProvider={authProvider} dataProvider={dataProvider}>
-        <Resource name="reference-entries" list={ListGuesser}/>
+        <Resource name="reference-entries" list={ListGuesser} edit={EditGuesser}/>
     </Admin>
 );
 export default App;
